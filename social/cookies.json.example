@@ -1,9 +1,15 @@
 {
-  "_说明": "把本文件复制为 cookies.json 并填入你的登录凭据。凭据仅保存在本地仓库，不会上传到公开站点（public/ 目录之外）。",
+  "_说明": "把本文件复制为 cookies.json 并填入你的登录凭据。凭据仅保存在本地仓库，不会上传到公开站点（public/ 目录之外）。每个平台的 cookie 是对应网站网页版(登录后)的完整 Cookie 字符串。",
   "xiaohongshu": {
     "cookie": "在此粘贴小红书网页版(creator.xiaohongshu.com 或 www.xiaohongshu.com) 的完整 Cookie 字符串"
   },
   "zhihu": {
     "cookie": "在此粘贴知乎网页版(www.zhihu.com) 的完整 Cookie 字符串"
+  },
+  "alimama": {
+    "cookie": "在此粘贴淘宝客(阿里妈妈 pub.alimama.com) 登录后的完整 Cookie 字符串 —— 用于自动生成带你 PID 的淘宝推广链接"
+  },
+  "jd": {
+    "cookie": "在此粘贴京东联盟(union.jd.com) 登录后的完整 Cookie 字符串 —— 用于自动生成带你 PID 的京东推广链接"
   }
 }
