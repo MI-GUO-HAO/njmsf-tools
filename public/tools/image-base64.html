@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片Base64转换 - 工具箱</title>
+    <meta name="description" content="本地图片转 Base64 编码，Base64 转回图片预览与下载，纯前端处理不上传。">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo"><div class="logo-icon">🧰</div><span>工具箱</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">首页</a>
+                <a href="../article/index.html">评测</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>🖼️ 图片 Base64 转换</h1>
+                <p>本地图片转 Base64 编码，Base64 转回图片预览与下载</p>
+            </div>
+            <div class="card">
+                <div class="file-drop-zone" onclick="document.getElementById('fileInput').click()">
+                    <div class="icon">📂</div>
+                    <p>点击选择图片（支持 PNG / JPG / GIF / WebP 等）</p>
+                </div>
+                <input type="file" id="fileInput" accept="image/*">
+                <div class="btn-group" style="margin-top:16px;">
+                    <button class="btn btn-secondary" onclick="previewFromText()">Base64 → 预览</button>
+                    <button class="btn btn-secondary" onclick="copyB64()">复制 Base64</button>
+                    <button class="btn btn-primary" onclick="downloadImage()">下载图片</button>
+                </div>
+                <div style="margin-top:16px;">
+                    <label style="display:block;font-weight:600;margin-bottom:6px;">Base64 数据</label>
+                    <textarea id="b64" rows="6" placeholder="图片会自动转为 Base64 显示在这里；也可粘贴 Base64 后点击“Base64 → 预览”"></textarea>
+                </div>
+                <div id="imgPreview" style="margin-top:16px;"></div>
+            </div>
+            <div class="usage-info">
+                <h3>使用说明</h3>
+                <ul>
+                    <li>选择本地图片后会立即生成 Data URL（Base64）编码，处理全程在浏览器本地完成。</li>
+                    <li>把 Base64 粘入文本框点击“Base64 → 预览”可还原图片，并可下载。</li>
+                    <li>超大图片生成的 Base64 较长，仅供本地使用，不建议直接嵌入网页。</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer"><p>© <span id="current-year"></span> 工具箱 · 免费在线工具集合</p></footer>
+    <script src="../js/common.js"></script>
+    <script>
+    function ensureDataUrl(v){
+        v = (v||'').trim();
+        if(!v) return '';
+        if(/^data:/.test(v)) return v;
+        return 'data:image/png;base64,' + v.replace(/^data:image\/[a-zA-Z]+;base64,/,'').trim();
+    }
+    document.getElementById('fileInput').addEventListener('change', function(e){
+        const file = e.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev){
+            document.getElementById('b64').value = ev.target.result;
+            showImage(ev.target.result);
+        };
+        reader.readAsDataURL(file);
+    });
+    function showImage(dataUrl){
+        document.getElementById('imgPreview').innerHTML = '<img class="result-image" src="'+dataUrl+'" alt="预览">';
+    }
+    function previewFromText(){
+        const v = ensureDataUrl(document.getElementById('b64').value);
+        if(!v){ showMessage('请先粘贴 Base64 数据', 'error'); return; }
+        showImage(v);
+    }
+    function copyB64(){ copyToClipboard(document.getElementById('b64').value); }
+    function downloadImage(){ const v = ensureDataUrl(document.getElementById('b64').value); if(!v){ showMessage('没有可下载的图片', 'error'); return; } downloadBase64Image(v, 'image.png'); }
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题字数/Emoji统计 - 工具箱</title>
+    <meta name="description" content="免费的标题字数、汉字、字母、Emoji 统计工具。对照小红书、公众号、抖音、微博、B站等平台标题字数上限，避免超限被截断。纯前端本地处理。">
+    <meta name="keywords" content="标题字数,emoji统计,小红书标题,公众号标题,字数上限,免登录">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .tc-badge { display:inline-flex; align-items:center; gap:6px; background:var(--primary-light); color:var(--primary-dark); border:1px solid #c5d9f7; padding:6px 12px; border-radius:50px; font-size:.85rem; font-weight:600; margin-bottom:18px; }
+        .tc-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin:16px 0; }
+        .tc-stat { background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:14px; text-align:center; }
+        .tc-stat b { display:block; font-size:1.6rem; color:var(--primary); }
+        .tc-stat span { font-size:.8rem; color:var(--text-secondary); }
+        .tc-platform { margin-top:18px; }
+        .tc-platform h4 { font-size:.95rem; margin-bottom:10px; }
+        .tc-bar-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:.9rem; }
+        .tc-bar-row .name { width:96px; flex-shrink:0; color:var(--text-secondary); }
+        .tc-bar-track { flex:1; height:12px; background:var(--bg-secondary); border-radius:6px; overflow:hidden; border:1px solid var(--border-color); }
+        .tc-bar-fill { height:100%; border-radius:6px; transition:var(--transition); }
+        .tc-bar-row .num { width:90px; text-align:right; flex-shrink:0; }
+        .tc-bar-row .num b { color:var(--text-primary); }
+        .tc-bar-row .num.over b { color:var(--danger); }
+        .affiliate-strip { margin-top:24px; background:#fffaf0; border:1px dashed #e6c97a; border-radius:var(--radius-sm); padding:12px 16px; font-size:.9rem; color:#7a5b00; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo"><div class="logo-icon">🧰</div><span>工具箱</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">首页</a>
+                <a href="../article/index.html">评测</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>🔢 标题字数 / Emoji 统计</h1>
+                <p>实时统计字数，对照各平台标题上限，避免被截断</p>
+            </div>
+            <div class="tc-badge">🔒 全部本地计算，内容不会上传</div>
+
+            <div class="card">
+                <div class="form-group">
+                    <label>输入标题</label>
+                    <textarea id="title" placeholder="在此输入标题，例如：3个让你瘦下来的早餐搭配🥗">3个让你瘦下来的早餐搭配🥗</textarea>
+                </div>
+                <div class="tc-stats" id="stats"></div>
+                <div class="tc-platform">
+                    <h4>各平台标题字数上限（估算，emoji 记为 1 字）</h4>
+                    <div id="bars"></div>
+                </div>
+            </div>
+
+            <div class="usage-info">
+                <h3>小提示</h3>
+                <ul>
+                    <li>小红书标题上限约 <b>20 字</b>、抖音约 55、公众号约 64、微博 140、B站 80、头条 30，超限会被截断或影响展示。</li>
+                    <li>各平台对英文/标点的计数算法略有差异，这里以"不含空格的字符数"为估算口径。</li>
+                </ul>
+            </div>
+
+            <!-- 联盟返佣位：把下面两个 href 换成你的阿里云/腾讯云大使专属链接 -->
+            <div class="affiliate-strip">
+                ☁️ 想自己做网站接这个流量？推荐 <a href="https://www.aliyun.com" target="_blank" rel="noopener">阿里云</a> / <a href="https://cloud.tencent.com" target="_blank" rel="noopener">腾讯云</a>（用我的专属链接你有优惠，我也拿佣金）。
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer"><p>© <span id="current-year"></span> 工具箱 · 免费在线工具集合</p></footer>
+    <script src="../js/common.js"></script>
+    <script>
+    const PLATFORMS = [
+        { name:'小红书', limit:20 },
+        { name:'抖音',   limit:55 },
+        { name:'头条',   limit:30 },
+        { name:'公众号', limit:64 },
+        { name:'B站',    limit:80 },
+        { name:'微博',   limit:140 }
+    ];
+    const emojiRe = /\p{Extended_Pictographic}/gu;
+
+    function analyze(){
+        const text = document.getElementById('title').value;
+        const cps = Array.from(text);
+        const noSpace = cps.filter(c => !/^\s$/.test(c));
+        const han = cps.filter(c => /[\u4e00-\u9fa5]/.test(c)).length;
+        const alphanum = cps.filter(c => /[a-zA-Z0-9]/.test(c)).length;
+        const emoji = (text.match(emojiRe) || []).length;
+        const total = cps.length;
+        const nospaceLen = noSpace.length;
+
+        document.getElementById('stats').innerHTML =
+            stat(total, '总字符(含空格)') +
+            stat(nospaceLen, '不含空格') +
+            stat(han, '汉字') +
+            stat(alphanum, '字母/数字') +
+            stat(emoji, 'Emoji');
+
+        const bars = PLATFORMS.map(p => {
+            const ratio = Math.min(100, nospaceLen / p.limit * 100);
+            const over = nospaceLen > p.limit;
+            const color = over ? 'var(--danger)' : (ratio > 80 ? 'var(--warning)' : 'var(--secondary)');
+            return '<div class="tc-bar-row"><div class="name">'+p.name+'</div>' +
+                '<div class="tc-bar-track"><div class="tc-bar-fill" style="width:'+ratio+'%;background:'+color+'"></div></div>' +
+                '<div class="num'+(over?' over':'')+'"><b>'+nospaceLen+'</b> / '+p.limit+(over?' ⚠':'')+'</div></div>';
+        }).join('');
+        document.getElementById('bars').innerHTML = bars;
+    }
+    function stat(v, label){ return '<div class="tc-stat"><b>'+v+'</b><span>'+label+'</span></div>'; }
+
+    document.getElementById('title').addEventListener('input', analyze);
+    analyze();
+    </script>
+</body>
+</html>

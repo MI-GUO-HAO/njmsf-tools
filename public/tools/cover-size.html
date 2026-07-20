@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>封面尺寸预览生成 - 工具箱</title>
+    <meta name="description" content="免费的小红书/公众号/抖音封面尺寸预览与生成工具。选择平台标准比例，输入标题即生成合规模版，支持导出真实分辨率 PNG。纯前端本地处理，图片不上传。">
+    <meta name="keywords" content="封面尺寸,小红书封面,公众号封面,抖音封面,尺寸生成,免上传,本地">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .cs-badge { display:inline-flex; align-items:center; gap:6px; background:var(--primary-light); color:var(--primary-dark); border:1px solid #c5d9f7; padding:6px 12px; border-radius:50px; font-size:.85rem; font-weight:600; margin-bottom:18px; }
+        .cs-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .cs-preview-wrap { display:flex; justify-content:center; align-items:center; background:var(--bg-secondary); border:1.5px dashed var(--border-color); border-radius:var(--radius-sm); padding:20px; min-height:300px; }
+        .cs-preview { display:flex; align-items:center; justify-content:center; text-align:center; padding:6%; font-weight:700; line-height:1.3; overflow:hidden; box-sizing:border-box; }
+        .cs-meta { font-size:.85rem; color:var(--text-secondary); margin-top:8px; text-align:center; }
+        @media(max-width:600px){ .cs-row{ grid-template-columns:1fr; } }
+        .affiliate-strip { margin-top:24px; background:#fffaf0; border:1px dashed #e6c97a; border-radius:var(--radius-sm); padding:12px 16px; font-size:.9rem; color:#7a5b00; }
+        input[type=color]{ height:44px; padding:4px; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo"><div class="logo-icon">🧰</div><span>工具箱</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">首页</a>
+                <a href="../article/index.html">评测</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>🖼️ 封面尺寸预览生成</h1>
+                <p>选平台标准比例，输入标题即生成合规模版，导出真实分辨率 PNG</p>
+            </div>
+            <div class="cs-badge">🔒 图片在你的浏览器本地生成，不会上传到任何服务器</div>
+
+            <div class="card">
+                <div class="cs-row">
+                    <div>
+                        <div class="form-group">
+                            <label>选择平台 / 尺寸</label>
+                            <select id="preset"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>封面标题</label>
+                            <textarea id="title" style="min-height:80px;">3个让你瘦下来的早餐搭配</textarea>
+                        </div>
+                        <div class="cs-row">
+                            <div class="form-group">
+                                <label>背景色</label>
+                                <input type="color" id="bg" value="#1a73e8">
+                            </div>
+                            <div class="form-group">
+                                <label>文字色</label>
+                                <input type="color" id="fg" value="#ffffff">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>字号（实际像素）：<span id="fsVal" class="slider-value">110</span></label>
+                            <input type="range" id="fs" min="40" max="240" value="110">
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="downloadCover()">下载 PNG</button>
+                            <button class="btn btn-secondary" onclick="randomColors()">随机配色</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="cs-preview-wrap">
+                            <div id="preview" class="cs-preview"></div>
+                        </div>
+                        <div class="cs-meta" id="meta"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usage-info">
+                <h3>为什么用这个而不是大厂设计工具？</h3>
+                <ul>
+                    <li><b>不上传</b>：封面在你本机用 Canvas 生成，草稿文案/图片不离开浏览器。</li>
+                    <li><b>尺寸准确</b>：内置小红书(3:4/1:1/4:3)、公众号、抖音、微博、B站等标准比例，导出即真实分辨率。</li>
+                    <li><b>免登录、无广告、秒开</b>。</li>
+                </ul>
+            </div>
+
+            <!-- 联盟返佣位：把下面两个 href 换成你的阿里云/腾讯云大使专属链接 -->
+            <div class="affiliate-strip">
+                ☁️ 想自己做网站接这个流量？推荐 <a href="https://www.aliyun.com" target="_blank" rel="noopener">阿里云</a> / <a href="https://cloud.tencent.com" target="_blank" rel="noopener">腾讯云</a>（用我的专属链接你有优惠，我也拿佣金）。
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer"><p>© <span id="current-year"></span> 工具箱 · 免费在线工具集合</p></footer>
+    <script src="../js/common.js"></script>
+    <script>
+    const PRESETS = [
+        { name:'小红书 竖版笔记封面 (3:4)', w:1242, h:1660 },
+        { name:'小红书 方图 (1:1)', w:1080, h:1080 },
+        { name:'小红书 横版 (4:3)', w:1440, h:1080 },
+        { name:'公众号 封面 (2.35:1)', w:900, h:383 },
+        { name:'公众号 方封面 (1:1)', w:900, h:900 },
+        { name:'抖音 视频封面 (9:16)', w:1080, h:1920 },
+        { name:'抖音 信息流方图 (1:1)', w:1080, h:1080 },
+        { name:'微博 封面 (2:1)', w:1000, h:500 },
+        { name:'B站 视频封面 (16:10)', w:1146, h:717 },
+        { name:'视频号 封面 (≈9:10)', w:1080, h:1260 }
+    ];
+    const sel = document.getElementById('preset');
+    PRESETS.forEach((p,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=p.name+'  '+p.w+'×'+p.h; sel.appendChild(o); });
+
+    function render(){
+        const p = PRESETS[+sel.value];
+        const title = document.getElementById('title').value || ' ';
+        const bg = document.getElementById('bg').value;
+        const fg = document.getElementById('fg').value;
+        const fs = +document.getElementById('fs').value;
+        const maxW = 300, maxH = 380;
+        const scale = Math.min(maxW/p.w, maxH/p.h);
+        const prev = document.getElementById('preview');
+        prev.style.width = (p.w*scale)+'px';
+        prev.style.height = (p.h*scale)+'px';
+        prev.style.background = bg;
+        prev.style.color = fg;
+        prev.style.fontSize = (fs*scale)+'px';
+        prev.textContent = title;
+        document.getElementById('meta').textContent = p.name + ' · 导出 ' + p.w + '×' + p.h + 'px';
+    }
+
+    function wrapText(ctx, text, maxW){
+        const lines=[]; let line='';
+        for(const ch of text){
+            if(ch==='\n'){ lines.push(line); line=''; continue; }
+            const test = line+ch;
+            if(ctx.measureText(test).width > maxW && line){ lines.push(line); line=ch; }
+            else line = test;
+        }
+        if(line) lines.push(line);
+        return lines;
+    }
+
+    function downloadCover(){
+        const p = PRESETS[+sel.value];
+        const title = document.getElementById('title').value || ' ';
+        const bg = document.getElementById('bg').value;
+        const fg = document.getElementById('fg').value;
+        const fs = +document.getElementById('fs').value;
+        const canvas = document.createElement('canvas');
+        canvas.width = p.w; canvas.height = p.h;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = bg; ctx.fillRect(0,0,p.w,p.h);
+        ctx.fillStyle = fg; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.font = 'bold '+fs+'px "PingFang SC","Microsoft YaHei",sans-serif';
+        const lines = wrapText(ctx, title, p.w - p.w*0.12);
+        const lh = fs*1.25;
+        const startY = p.h/2 - (lines.length-1)*lh/2;
+        lines.forEach((ln,i)=> ctx.fillText(ln, p.w/2, startY + i*lh));
+        canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'cover_'+p.w+'x'+p.h+'.png';
+            document.body.appendChild(a); a.click(); a.remove();
+            URL.revokeObjectURL(url);
+            showMessage('封面已下载', 'success');
+        }, 'image/png');
+    }
+
+    function randomColors(){
+        const rnd = () => '#' + Math.floor(Math.random()*0xffffff).toString(16).padStart(6,'0');
+        document.getElementById('bg').value = rnd();
+        document.getElementById('fg').value = '#ffffff';
+        render();
+    }
+
+    sel.addEventListener('change', render);
+    document.getElementById('title').addEventListener('input', render);
+    document.getElementById('bg').addEventListener('input', render);
+    document.getElementById('fg').addEventListener('input', render);
+    document.getElementById('fs').addEventListener('input', ()=>{ document.getElementById('fsVal').textContent = document.getElementById('fs').value; render(); });
+    render();
+    </script>
+</body>
+</html>

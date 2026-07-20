@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具箱 - 免费实用的在线工具集合</title>
+    <meta name="description" content="工具箱是一个免费的在线工具集合网站，提供二维码生成、密码生成、JSON格式化、Base64编解码、URL编解码、时间戳转换、颜色转换、文本对比、Markdown编辑器、图片Base64转换等实用工具。">
+    <meta name="keywords" content="在线工具,二维码生成,密码生成,JSON格式化,Base64,URL编码,时间戳转换,颜色转换,文本对比,Markdown编辑器">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .privacy-promo {
+            display:flex; gap:16px; align-items:flex-start;
+            background:linear-gradient(135deg,#e8f0fe,#f3e8fd);
+            border:1px solid #c5d9f7; border-radius:var(--radius-md);
+            padding:22px 24px; margin:0 auto 36px; max-width:900px;
+        }
+        .privacy-promo .pp-icon { font-size:2rem; line-height:1; }
+        .privacy-promo h3 { font-size:1.2rem; margin-bottom:6px; color:var(--primary-dark); }
+        .privacy-promo p { font-size:.92rem; color:#3c4a5a; margin-bottom:10px; }
+        .privacy-promo b { color:var(--danger); }
+        .pp-links { display:flex; gap:14px; flex-wrap:wrap; font-weight:600; }
+        .pp-links a { color:var(--primary); }
+        @media(max-width:600px){ .privacy-promo{ flex-direction:column; gap:8px; } }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🧰</div>
+                <span>工具箱</span>
+            </a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">首页</a>
+                <a href="article/index.html">评测</a>
+                <a href="about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <main class="main-content">
+        <div class="page-hero">
+            <h1>🧰 工具箱</h1>
+            <p class="subtitle">免费实用的在线工具集合，无需下载安装，打开即用</p>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="搜索工具名称..." autocomplete="off">
+        </div>
+
+        <!-- 隐私优先的自媒体工具箱 横幅 -->
+        <div class="privacy-promo">
+            <div class="pp-icon">🔒</div>
+            <div>
+                <h3>隐私优先 · 自媒体人的本地工具箱</h3>
+                <p>敏感词检测 · 封面尺寸生成 · 标题字数统计 —— 全部在你的浏览器本地运行，<b>文案 / 图片不出本机</b>，免登录、无广告。专为怕素材泄露、烦开屏广告的自媒体人打造。</p>
+                <div class="pp-links">
+                    <a href="tools/sensitive-words.html">敏感词检测 →</a>
+                    <a href="tools/cover-size.html">封面尺寸生成 →</a>
+                    <a href="tools/title-counter.html">标题字数统计 →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 工具卡片网格 -->
+        <div class="tools-grid" id="tools-grid">
+            <div class="tool-card" data-name="二维码生成器" onclick="location.href='tools/qrcode.html'">
+                <div class="tool-icon blue">📱</div>
+                <h3>二维码生成器</h3>
+                <p>将文本或网址快速生成二维码图片，支持下载保存</p>
+            </div>
+
+            <div class="tool-card" data-name="密码生成器" onclick="location.href='tools/password.html'">
+                <div class="tool-icon green">🔐</div>
+                <h3>密码生成器</h3>
+                <p>生成高强度随机密码，自定义长度和字符类型，检测密码强度</p>
+            </div>
+
+            <div class="tool-card" data-name="JSON格式化" onclick="location.href='tools/json-formatter.html'">
+                <div class="tool-icon yellow">📋</div>
+                <h3>JSON格式化</h3>
+                <p>格式化、压缩JSON数据，语法高亮显示，一键复制结果</p>
+            </div>
+
+            <div class="tool-card" data-name="Base64编解码" onclick="location.href='tools/base64.html'">
+                <div class="tool-icon purple">🔤</div>
+                <h3>Base64编解码</h3>
+                <p>文本与Base64编码相互转换，支持中文，结果可复制</p>
+            </div>
+
+            <div class="tool-card" data-name="URL编解码" onclick="location.href='tools/url-encode.html'">
+                <div class="tool-icon cyan">🔗</div>
+                <h3>URL编解码</h3>
+                <p>URL编码和解码转换，处理特殊字符和中文</p>
+            </div>
+
+            <div class="tool-card" data-name="时间戳转换" onclick="location.href='tools/timestamp.html'">
+                <div class="tool-icon blue">⏰</div>
+                <h3>时间戳转换</h3>
+                <p>Unix时间戳与日期时间相互转换，显示实时当前时间戳</p>
+            </div>
+
+            <div class="tool-card" data-name="颜色转换器" onclick="location.href='tools/color-converter.html'">
+                <div class="tool-icon red">🎨</div>
+                <h3>颜色转换器</h3>
+                <p>HEX、RGB、HSL颜色值相互转换，实时预览颜色效果</p>
+            </div>
+
+            <div class="tool-card" data-name="文本对比" onclick="location.href='tools/text-diff.html'">
+                <div class="tool-icon green">📝</div>
+                <h3>文本对比</h3>
+                <p>对比两段文本的差异，高亮显示新增、删除和修改内容</p>
+            </div>
+
+            <div class="tool-card" data-name="Markdown编辑器" onclick="location.href='tools/markdown-editor.html'">
+                <div class="tool-icon purple">✍️</div>
+                <h3>Markdown编辑器</h3>
+                <p>在线Markdown编辑和实时预览，支持导出HTML和下载</p>
+            </div>
+
+            <div class="tool-card" data-name="图片Base64转换" onclick="location.href='tools/image-base64.html'">
+                <div class="tool-icon yellow">🖼️</div>
+                <h3>图片Base64转换</h3>
+                <p>本地图片转Base64编码，Base64转回图片，支持下载</p>
+            </div>
+
+            <div class="tool-card" data-name="敏感词检测 极限词 违规词 自查 小红书 公众号" onclick="location.href='tools/sensitive-words.html'">
+                <div class="tool-icon red">🛡️</div>
+                <h3>敏感词 / 极限词检测</h3>
+                <p>本地检测极限词、违规词，发笔记前自查避坑，文案不上传</p>
+            </div>
+
+            <div class="tool-card" data-name="封面尺寸 小红书 公众号 抖音 生成 配图" onclick="location.href='tools/cover-size.html'">
+                <div class="tool-icon blue">🖼️</div>
+                <h3>封面尺寸预览生成</h3>
+                <p>小红书/公众号/抖音标准尺寸，本地生成并导出 PNG</p>
+            </div>
+
+            <div class="tool-card" data-name="标题字数 emoji 统计 字数上限" onclick="location.href='tools/title-counter.html'">
+                <div class="tool-icon purple">🔢</div>
+                <h3>标题字数 / Emoji 统计</h3>
+                <p>实时统计字数，对照各平台标题上限，避免被截断</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部 -->
+    <footer class="site-footer">
+        <p>© <span id="current-year"></span> 工具箱 - 免费在线工具集合</p>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <!-- 流量统计代码占位：部署后取消注释并填入你的统计 ID（51.la / 百度统计 / Cloudflare Web Analytics） -->
+    <!-- 51.la: <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"YOUR_51LA_ID",ck:"YOUR_CK",autoTrack:true})</script> -->
+    <!-- 百度统计: <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?YOUR_BAIDU_ID";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script> -->
+    <script>
+        // 搜索功能
+        document.getElementById('search-input').addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                if (name.includes(query)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

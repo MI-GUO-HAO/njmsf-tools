@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL编解码 详细介绍与使用指南 - 工具箱</title>
+<meta name="description" content="URL编解码是一款专为处理URL编码与解码设计的轻量级工具，帮助开发者快速转换URL中的特殊字符，提升数据传输效率和安全性。">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",Arial,sans-serif; line-height:1.75; color:#333; background:#f6f7f9; }
+.site-header { background:#fff; border-bottom:1px solid #e8e8e8; padding:14px 0; position:sticky; top:0; z-index:100; }
+.header-container { max-width:900px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+.logo { font-size:20px; font-weight:700; color:#1a73e8; text-decoration:none; display:flex; align-items:center; gap:8px; }
+.nav-links a { color:#555; text-decoration:none; margin-left:20px; font-size:14px; }
+.nav-links a:hover { color:#1a73e8; }
+.container { max-width:900px; margin:0 auto; padding:24px 20px; }
+.article { background:#fff; border-radius:12px; padding:34px; box-shadow:0 2px 10px rgba(0,0,0,.05); margin-top:20px; }
+.back-link { display:inline-block; margin:20px 0 0; color:#1a73e8; text-decoration:none; font-size:14px; }
+.article h1 { font-size:28px; margin-bottom:10px; color:#1a1a1a; }
+.article h2 { font-size:21px; margin:30px 0 12px; color:#1a73e8; }
+.article h3 { font-size:17px; margin:22px 0 10px; color:#222; }
+.article p { margin-bottom:14px; color:#444; }
+.article ul { margin:14px 0; padding-left:22px; }
+.article li { margin-bottom:8px; color:#444; }
+.site-footer { text-align:center; color:#999; font-size:13px; padding:30px 20px; margin-top:40px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+.card { background:#fff; border-radius:10px; padding:18px; box-shadow:0 2px 8px rgba(0,0,0,.05); transition:.2s; }
+.card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.card h3 { font-size:16px; margin-bottom:8px; }
+.card h3 a { color:#1a73e8; text-decoration:none; }
+.card p { color:#666; font-size:13px; }
+.card-meta { margin-top:10px; font-size:12px; color:#999; }
+.section-title { font-size:22px; font-weight:600; margin:8px 0 4px; color:#1a73e8; }
+.page-intro { color:#666; font-size:15px; margin-bottom:6px; }
+@media(max-width:600px){ .article{padding:20px;} .article h1{font-size:23px;} }</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-container">
+    <a href="../index.html" class="logo">🧰 工具箱</a>
+    <nav class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="./">评测</a>
+      <a href="../about.html">关于</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <a href="../index.html" class="back-link">&larr; 返回首页</a>
+  <article class="article">
+<h1>URL编解码：网页开发者的必备工具</h1>
+<h2>工具简介</h2>
+<p>URL编解码是一款专为处理URL编码与解码设计的轻量级工具，帮助开发者快速转换URL中的特殊字符，提升数据传输效率和安全性。</p>
+<h2>核心功能</h2>
+<p>**1. 编码与解码支持** 支持常见的URL编码格式，如`application/x-www-form-urlencoded`，可将空格、符号等转换为标准格式，同时也能还原原始内容。操作简单，无需复杂配置。</p>
+<p>**2. 多语言兼容性** 该工具支持多种编程语言的编码规则，包括JavaScript、Python、Java等，适用于不同平台和开发环境，确保跨平台一致性。</p>
+<p>**3. 实时预览功能** 在输入内容后，工具会实时显示编码或解码结果，方便用户即时查看效果，减少调试时间。</p>
+<p>**4. 批量处理能力** 支持多行文本一次性处理，适合需要批量转换大量URL数据的场景，提高工作效率。</p>
+<p>**5. 自定义参数设置** 允许用户自定义编码方式和字符集，满足特定项目需求，增强灵活性。</p>
+<h2>适用人群</h2>
+<p>URL编解码适合前端开发者、后端工程师、数据分析师以及任何需要处理URL数据的用户。尤其在进行API调试、表单提交、爬虫开发等场景中非常实用。</p>
+<h2>优点和缺点</h2>
+<p>**优点：**</p>
+<ul>
+<li>操作简单，上手快，适合新手使用；</li>
+<li>支持多语言和多种编码方式，适应性强；</li>
+<li>实时预览功能提升工作效率。</li>
+</ul>
+<p>**缺点：**</p>
+<ul>
+<li>功能相对单一，不支持更复杂的加密或压缩操作；</li>
+<li>界面较为基础，缺乏高级定制选项。</li>
+</ul>
+<h2>使用建议</h2>
+<p>对于新手来说，建议先从简单的编码和解码开始，熟悉基本操作后再尝试更复杂的场景。在使用过程中，注意检查输入内容是否符合预期编码格式，避免因格式错误导致数据丢失或解析失败。</p>
+<h2>总结</h2>
+<p>URL编解码是网页开发中不可或缺的小工具，简单高效，值得每一位开发者尝试。</p>
+  </article>
+    <!-- ===== 流量统计代码（占位）=====
+         部署后取消注释并填入你的统计 ID：
+         51.la（免备案，推荐）：
+           <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+           <script>LA.init({id:"在此填51la_id",ck:"你的ck",autoTrack:true})</script>
+         百度统计：
+           <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?在此填baidu_id";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
+         Cloudflare Web Analytics（Cloudflare Pages 后台开启后自动注入，无需此段）：
+           <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"在此填token"}'></script>
+    -->
+
+</main>
+<footer class="site-footer"><p>&copy; 2026 工具箱 · 免费在线工具集合</p></footer>
+</body>
+</html>

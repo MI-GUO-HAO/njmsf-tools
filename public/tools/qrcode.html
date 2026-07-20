@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成器 - 工具箱</title>
+    <meta name="description" content="免费的在线二维码生成工具，将文本或网址快速生成二维码图片，支持下载保存。">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🧰</div>
+                <span>工具箱</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html">← 返回首页</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>📱 二维码生成器</h1>
+                <p>输入文本或网址，一键生成二维码图片</p>
+            </div>
+
+            <div class="card">
+                <div class="form-group">
+                    <label for="qr-text">输入内容</label>
+                    <input type="text" id="qr-text" placeholder="输入文本、网址或其他内容...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="generateQR()">生成二维码</button>
+                    <button class="btn btn-secondary" onclick="downloadQR()">下载二维码</button>
+                </div>
+                <div id="qr-result" style="margin-top: 20px; text-align: center;"></div>
+            </div>
+
+            <div class="usage-info">
+                <h3>使用说明</h3>
+                <ul>
+                    <li>在输入框中输入要编码的文本、网址或任意内容</li>
+                    <li>点击「生成二维码」按钮生成二维码图片</li>
+                    <li>点击「下载二维码」保存图片到本地</li>
+                    <li>支持生成任意文本的二维码，包括URL、联系方式等</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="current-year"></span> 工具箱 - 免费在线工具集合</p>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script>
+        let currentQR = null;
+
+        function generateQR() {
+            const text = document.getElementById('qr-text').value.trim();
+            const resultDiv = document.getElementById('qr-result');
+
+            if (!text) {
+                showMessage('请输入内容', 'error');
+                return;
+            }
+
+            resultDiv.innerHTML = '';
+            currentQR = new QRCode(resultDiv, {
+                text: text,
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+            showMessage('二维码生成成功', 'success');
+        }
+
+        function downloadQR() {
+            const resultDiv = document.getElementById('qr-result');
+            const img = resultDiv.querySelector('img');
+            if (!img) {
+                showMessage('请先生成二维码', 'error');
+                return;
+            }
+            const a = document.createElement('a');
+            a.href = img.src;
+            a.download = 'qrcode.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showMessage('二维码已下载', 'success');
+        }
+
+        // 回车生成
+        document.getElementById('qr-text').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') generateQR();
+        });
+    </script>
+</body>
+</html>

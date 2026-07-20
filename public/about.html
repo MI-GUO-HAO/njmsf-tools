@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 - 工具箱</title>
+    <meta name="description" content="工具箱（njmsf.top）是一个免费的在线工具集合与软件评测站，提供二维码、密码、JSON、Base64、颜色转换等实用工具。">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo"><div class="logo-icon">🧰</div><span>工具箱</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">首页</a>
+                <a href="article/index.html">评测</a>
+                <a href="about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>关于 工具箱</h1>
+                <p>一个免费、无广告、纯前端的在线工具集合站</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">🧰 我们是什么</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;">
+                    工具箱（<strong>njmsf.top</strong>）是一个免费的在线工具集合网站，所有工具都在你的浏览器本地运行，
+                    数据不上传服务器，注重隐私与速度。我们同时提供常用软件与在线工具的<strong>评测文章</strong>，
+                    帮助你挑选趁手的工具。
+                </p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">🛠️ 工具清单</h3>
+                <ul style="margin-left:18px;color:var(--text-secondary);line-height:2;">
+                    <li>二维码生成器 · 密码生成器 · JSON 格式化</li>
+                    <li>Base64 编解码 · URL 编解码 · 时间戳转换</li>
+                    <li>颜色转换器 · 文本对比 · Markdown 编辑器 · 图片 Base64 转换</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3 class="card-title">✉️ 联系我们</h3>
+                <p style="color:var(--text-secondary);line-height:1.8;">
+                    商务合作或建议反馈，欢迎发邮件至：<a href="mailto:contact@njmsf.top">contact@njmsf.top</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer"><p>© <span id="current-year"></span> 工具箱（njmsf.top）· 免费在线工具集合</p></footer>
+    <script src="js/common.js"></script>
+</body>
+</html>
