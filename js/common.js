@@ -328,7 +328,7 @@ function hslToRgb(h, s, l) {
 // ===== 流量统计（全站生效）=====
 // 部署后，把下面引号里换成你的 51.la 统计 ID（官网 sdk.51.la 注册，无需 ICP 备案），
 // 全站所有页面会自动加载统计，无需逐个修改页面。留空则不加统计。
-window.SITE_ANALYTICS_ID = ''; // 例如 '3xAbC123xxxx'
+window.SITE_ANALYTICS_ID = '3Qcg75RJeJ8BQX6c'; // 例如 '3xAbC123xxxx'
 function loadAnalytics() {
     const id = window.SITE_ANALYTICS_ID;
     if (!id) return;
@@ -338,7 +338,7 @@ function loadAnalytics() {
     s.src = '//sdk.51.la/js-sdk-pro.min.js';
     document.head.appendChild(s);
     const init = document.createElement('script');
-    init.textContent = 'LA.init({id:"' + id + '",ck:"",autoTrack:true})';
+    init.textContent = 'LA.init({id:"' + id + '",ck:"' + id + '",autoTrack:true})';
     document.head.appendChild(init);
 }
 
