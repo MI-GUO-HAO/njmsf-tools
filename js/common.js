@@ -330,6 +330,9 @@ function hslToRgb(h, s, l) {
 // 全站所有页面会自动加载统计，无需逐个修改页面。留空则不加统计。
 window.SITE_ANALYTICS_ID = '3Qcg75RJeJ8BQX6c'; // 例如 '3xAbC123xxxx'
 window.ADSENSE_ID = ''; // 例如 'ca-pub-xxxxxxxx'，填了才显示广告
+// 联盟返佣：填你在「淘宝客 Alimama / 京东联盟」后台生成的「带自己 PID 的推广链接」全链。
+// 留空则推荐位指向平台落地页（不计佣金）。填了之后全站推荐位自动变成你的返佣链接。
+window.AFFILIATE = { taobao: '', jd: '' };
 function loadAnalytics() {
     const id = window.SITE_ANALYTICS_ID;
     if (!id) return;
@@ -357,11 +360,20 @@ function loadAds() {
     }
 }
 
+// 联盟返佣：把全站 a[data-aff] 推荐位替换成你的返佣链接（填了才替换）
+function applyAffiliate() {
+    const cfg = window.AFFILIATE || {};
+    if (cfg.taobao) document.querySelectorAll('a[data-aff="taobao"]').forEach(a => { a.href = cfg.taobao; });
+    if (cfg.jd) document.querySelectorAll('a[data-aff="jd"]').forEach(a => { a.href = cfg.jd; });
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     // 当前年份
     const yearEl = document.getElementById('current-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+    // 联盟返佣链接
+    applyAffiliate();
     // 流量统计
     loadAnalytics();
     // 广告（填了 ADSENSE_ID 才生效）
