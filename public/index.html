@@ -21,14 +21,26 @@
         .pp-links { display:flex; gap:14px; flex-wrap:wrap; font-weight:600; }
         .pp-links a { color:var(--primary); }
         @media(max-width:600px){ .privacy-promo{ flex-direction:column; gap:8px; } }
-        .monetize-box{ display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:900px; margin:8px auto 36px; }
-        .mb-card{ background:#fff; border:1px solid #e3e8ef; border-radius:var(--radius-md); padding:20px 22px; }
-        .mb-card h3{ font-size:1.05rem; margin-bottom:8px; color:var(--primary-dark); }
-        .mb-card p{ font-size:.9rem; color:#445; line-height:1.7; }
-        .mb-note{ color:#b45309; font-weight:600; }
-        .mb-card.ad{ display:flex; align-items:center; justify-content:center; background:#fafbfc; }
-        .ad-tip{ color:#9aa; font-size:.85rem; }
-        @media(max-width:600px){ .monetize-box{ grid-template-columns:1fr; } }
+        .support-note { max-width:760px; margin:8px auto 32px; text-align:center; color:#667; font-size:.88rem; line-height:1.85; }
+        .support-note b { color:#445; }
+        .support-links { margin-top:10px; display:flex; gap:14px; justify-content:center; font-size:.9rem; }
+        .support-links a { color:var(--primary); text-decoration:none; font-weight:600; }
+        .support-links a:hover { text-decoration:underline; }
+        .support-links .dot { color:#ccc; }
+        .ad-slot-subtle { max-width:900px; margin:0 auto 32px; }
+        .ad-slot-subtle .ad-tip { display:none; }
+        .latest-articles { max-width:1100px; margin:8px auto 36px; }
+        .latest-articles h2 { font-size:1.3rem; margin-bottom:4px; color:var(--primary-dark); padding:0 4px; }
+        .latest-articles .la-sub { color:#667; font-size:.9rem; margin-bottom:16px; padding:0 4px; }
+        .la-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+        .la-card { background:#fff; border:1px solid #e3e8ef; border-radius:var(--radius-md); padding:16px 18px; text-decoration:none; color:inherit; transition:.2s; display:block; }
+        .la-card:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.08); border-color:#c5d9f7; }
+        .la-card h3 { font-size:1rem; margin-bottom:8px; color:var(--primary); line-height:1.4; }
+        .la-card p { font-size:.85rem; color:#667; line-height:1.6; }
+        .la-card .la-date { margin-top:10px; font-size:.78rem; color:#9aa; }
+        .la-more { text-align:center; margin-top:18px; }
+        .la-more a { color:var(--primary); font-weight:600; text-decoration:none; }
+        @media(max-width:600px){ .la-grid{ grid-template-columns:1fr; } }
     </style>
 </head>
 <body>
@@ -155,17 +167,24 @@
             </div>
         </div>
 
-        <!-- 访客留存 + 变现位 -->
-        <section class="monetize-box">
-            <div class="mb-card follow">
-                <h3>📣 关注我们，新工具第一时间知道</h3>
-                <p>搜索公众号 <b>「njmsf工具箱」</b>（占位，待你填真实公众号）加入读者群，避坑干货优先发。</p>
-                <p class="mb-note">👉 想接广告变现？把 AdSense / 百度联盟 ID 发我，我直接挂上——有流量就有收入。</p>
-            </div>
-            <div class="mb-card ad" id="ad-slot">
-                <p class="ad-tip">广告位（AdSense / 百度联盟，配置 ID 后自动展示）</p>
+        <!-- 最新文章（SEO 内链 + 流量复用，JS 自动注入） -->
+        <section class="latest-articles">
+            <h2>📚 自媒体实战干货</h2>
+            <p class="la-sub">最新更新的运营教程与避坑指南，点开即读。</p>
+            <div class="la-grid" id="la-grid"><!-- JS 注入最新文章 --></div>
+            <div class="la-more"><a href="article/index.html">查看全部文章 →</a></div>
+        </section>
+
+        <!-- 低调的支持区块：免费无广告，仅作温和引导 -->
+        <section class="support-note">
+            <p>🔧 工具箱完全免费、无广告、所有数据本地处理。如果它帮到了你，欢迎把网站分享给朋友；网购时顺手点一下下面的「创作者好物」，<b>你不多花钱，作者能赚一点点返利</b>。</p>
+            <div class="support-links">
+                <a href="https://uland.taobao.com/" target="_blank" rel="noopener" data-aff="taobao">淘宝好物</a>
+                <span class="dot">·</span>
+                <a href="https://union.jd.com/" target="_blank" rel="noopener" data-aff="jd">京东好物</a>
             </div>
         </section>
+        <div id="ad-slot" class="ad-slot-subtle"></div>
     </main>
 
     <!-- 底部 -->
@@ -191,6 +210,24 @@
                 }
             });
         });
+
+        // 最新文章（从 data/articles.json 渲染首页内链，自动随内容更新）
+        (function () {
+            fetch('data/articles.json').then(function (r) { return r.json(); }).then(function (list) {
+                if (!Array.isArray(list) || !list.length) return;
+                list.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+                var top = list.slice(0, 6);
+                var html = top.map(function (a) {
+                    return '<a class="la-card" href="article/' + a.slug + '.html">'
+                        + '<h3>' + (a.title || a.tool || '') + '</h3>'
+                        + '<p>' + (a.summary || '') + '</p>'
+                        + '<div class="la-date">' + (a.date || '') + '</div>'
+                        + '</a>';
+                }).join('');
+                var grid = document.getElementById('la-grid');
+                if (grid) grid.innerHTML = html;
+            }).catch(function (e) { console.warn('latest articles load failed', e); });
+        })();
     </script>
 </body>
 </html>

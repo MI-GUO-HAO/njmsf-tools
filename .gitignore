@@ -5,6 +5,8 @@ scripts/
 # 用户社媒登录凭据，严禁入库（含会话 Cookie）
 social/cookies.json
 social/PUBLISH_LOG.md
+social/cover_*.png
+social/*_editor.html
 __pycache__/
 *.pyc
 .venv/

@@ -1,0 +1,12 @@
+{
+  "xiaohongshu": {
+    "status": "LOGGED_IN",
+    "detail": "",
+    "at": "2026-07-20T14:47:22.529Z"
+  },
+  "zhihu": {
+    "status": "NO_COOKIE",
+    "detail": "",
+    "at": "2026-07-20T14:40:52.276Z"
+  }
+}
