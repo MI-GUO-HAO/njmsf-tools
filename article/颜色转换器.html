@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>颜色转换器 详细介绍与使用指南 - 工具箱</title>
+<meta name="description" content="颜色转换器是一款专为设计师、开发者和色彩爱好者打造的实用工具，能够快速在不同颜色格式之间进行转换，提升工作效率。">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",Arial,sans-serif; line-height:1.75; color:#333; background:#f6f7f9; }
+.site-header { background:#fff; border-bottom:1px solid #e8e8e8; padding:14px 0; position:sticky; top:0; z-index:100; }
+.header-container { max-width:900px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+.logo { font-size:20px; font-weight:700; color:#1a73e8; text-decoration:none; display:flex; align-items:center; gap:8px; }
+.nav-links a { color:#555; text-decoration:none; margin-left:20px; font-size:14px; }
+.nav-links a:hover { color:#1a73e8; }
+.container { max-width:900px; margin:0 auto; padding:24px 20px; }
+.article { background:#fff; border-radius:12px; padding:34px; box-shadow:0 2px 10px rgba(0,0,0,.05); margin-top:20px; }
+.back-link { display:inline-block; margin:20px 0 0; color:#1a73e8; text-decoration:none; font-size:14px; }
+.article h1 { font-size:28px; margin-bottom:10px; color:#1a1a1a; }
+.article h2 { font-size:21px; margin:30px 0 12px; color:#1a73e8; }
+.article h3 { font-size:17px; margin:22px 0 10px; color:#222; }
+.article p { margin-bottom:14px; color:#444; }
+.article ul { margin:14px 0; padding-left:22px; }
+.article li { margin-bottom:8px; color:#444; }
+.site-footer { text-align:center; color:#999; font-size:13px; padding:30px 20px; margin-top:40px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+.card { background:#fff; border-radius:10px; padding:18px; box-shadow:0 2px 8px rgba(0,0,0,.05); transition:.2s; }
+.card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.card h3 { font-size:16px; margin-bottom:8px; }
+.card h3 a { color:#1a73e8; text-decoration:none; }
+.card p { color:#666; font-size:13px; }
+.card-meta { margin-top:10px; font-size:12px; color:#999; }
+.section-title { font-size:22px; font-weight:600; margin:8px 0 4px; color:#1a73e8; }
+.page-intro { color:#666; font-size:15px; margin-bottom:6px; }
+@media(max-width:600px){ .article{padding:20px;} .article h1{font-size:23px;} }</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-container">
+    <a href="../index.html" class="logo">🧰 工具箱</a>
+    <nav class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="./">评测</a>
+      <a href="../about.html">关于</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <a href="../index.html" class="back-link">&larr; 返回首页</a>
+  <article class="article">
+<h1>颜色转换器：设计师与开发者的必备工具</h1>
+<h2>工具简介</h2>
+<p>颜色转换器是一款专为设计师、开发者和色彩爱好者打造的实用工具，能够快速在不同颜色格式之间进行转换，提升工作效率。</p>
+<h2>核心功能</h2>
+<h3>1. 多种颜色格式转换</h3>
+<p>支持 RGB、HEX、HSL、CMYK 等主流颜色格式之间的相互转换。无论你是在设计网页还是打印材料，都能轻松获取所需颜色值。</p>
+<h3>2. 实时预览功能</h3>
+<p>在转换颜色的同时，工具会实时显示颜色效果，让用户直观看到颜色变化，避免误用不合适的色彩。</p>
+<h3>3. 调色板生成</h3>
+<p>用户可以输入一组基础颜色，工具会自动生成协调的调色板，适合用于品牌设计或UI界面配色。</p>
+<h3>4. 快速复制功能</h3>
+<p>转换后的颜色值可以直接复制到剪贴板，方便粘贴到设计软件、代码编辑器或其他应用中，节省手动输入时间。</p>
+<h3>5. 支持十六进制颜色解析</h3>
+<p>对于包含透明度（如 #FF0000AA）的高级颜色格式，颜色转换器也能准确识别并处理，满足更复杂的使用场景。</p>
+<h2>适用人群</h2>
+<p>颜色转换器适合所有需要频繁处理颜色的用户，包括平面设计师、网页开发者、UI/UX 设计师、印刷从业者以及对色彩有研究兴趣的爱好者。</p>
+<h2>优点和缺点</h2>
+<h3>优点</h3>
+<ul>
+<li>操作简单，界面直观，上手快。</li>
+<li>支持多种颜色格式，功能全面。</li>
+<li>实时预览和快速复制功能大幅提升效率。</li>
+</ul>
+<h3>缺点</h3>
+<ul>
+<li>功能相对集中，不适合进行复杂的设计操作。</li>
+<li>对于非技术人员来说，部分高级功能可能略显复杂。</li>
+</ul>
+<h2>使用建议</h2>
+<p>如果你是新手，建议从基本的颜色转换开始，逐步了解不同颜色格式的含义和应用场景。同时，多尝试将转换后的颜色应用到实际项目中，以加深理解。不要忽视调色板生成功能，它能帮助你更快找到合适的配色方案。</p>
+<h2>总结</h2>
+<p>颜色转换器是一款高效且实用的工具，无论是专业设计师还是普通用户，都能从中受益，推荐给所有需要处理颜色的用户。</p>
+  </article>
+    <!-- ===== 流量统计代码（占位）=====
+         部署后取消注释并填入你的统计 ID：
+         51.la（免备案，推荐）：
+           <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+           <script>LA.init({id:"在此填51la_id",ck:"你的ck",autoTrack:true})</script>
+         百度统计：
+           <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?在此填baidu_id";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
+         Cloudflare Web Analytics（Cloudflare Pages 后台开启后自动注入，无需此段）：
+           <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"在此填token"}'></script>
+    -->
+
+</main>
+<footer class="site-footer"><p>&copy; 2026 工具箱 · 免费在线工具集合</p></footer>
+</body>
+</html>

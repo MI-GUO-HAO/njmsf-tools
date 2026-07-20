@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON格式化 - 工具箱</title>
+    <meta name="description" content="免费的在线JSON格式化工具，支持格式化、压缩JSON数据，语法高亮显示，一键复制结果，自动检测格式错误。">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🧰</div>
+                <span>工具箱</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html">← 返回首页</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>📋 JSON格式化</h1>
+                <p>格式化、压缩JSON数据，语法高亮，错误检测</p>
+            </div>
+
+            <div class="card">
+                <div class="form-group">
+                    <label for="json-input">输入JSON</label>
+                    <textarea id="json-input" placeholder='{"name": "示例", "value": 123}'></textarea>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="formatJSON()">格式化</button>
+                    <button class="btn btn-secondary" onclick="compactJSON()">压缩</button>
+                    <button class="btn btn-secondary" onclick="copyJSONResult()">复制结果</button>
+                </div>
+                <div id="json-error"></div>
+                <div class="result-box" id="json-result" style="white-space: pre-wrap; font-family: monospace;"></div>
+            </div>
+
+            <div class="usage-info">
+                <h3>使用说明</h3>
+                <ul>
+                    <li>在文本框中粘贴需要处理的JSON字符串</li>
+                    <li>点击「格式化」将JSON美化输出，带缩进和高亮</li>
+                    <li>点击「压缩」将JSON去除所有空白字符</li>
+                    <li>如果JSON格式有误，会显示错误提示信息</li>
+                    <li>点击「复制结果」将处理后的JSON复制到剪贴板</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="current-year"></span> 工具箱 - 免费在线工具集合</p>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script>
+        function formatJSON() {
+            const input = document.getElementById('json-input').value.trim();
+            const resultDiv = document.getElementById('json-result');
+            const errorDiv = document.getElementById('json-error');
+
+            if (!input) {
+                showMessage('请输入JSON内容', 'error');
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(input);
+                const formatted = JSON.stringify(parsed, null, 4);
+                resultDiv.innerHTML = highlightJSON(formatted);
+                errorDiv.innerHTML = '';
+                showMessage('格式化成功', 'success');
+            } catch (e) {
+                errorDiv.innerHTML = '<div class="error-message">JSON格式错误：' + e.message + '</div>';
+                resultDiv.innerHTML = '';
+            }
+        }
+
+        function compactJSON() {
+            const input = document.getElementById('json-input').value.trim();
+            const resultDiv = document.getElementById('json-result');
+            const errorDiv = document.getElementById('json-error');
+
+            if (!input) {
+                showMessage('请输入JSON内容', 'error');
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(input);
+                const compact = JSON.stringify(parsed);
+                resultDiv.innerHTML = highlightJSON(compact);
+                errorDiv.innerHTML = '';
+                showMessage('压缩成功', 'success');
+            } catch (e) {
+                errorDiv.innerHTML = '<div class="error-message">JSON格式错误：' + e.message + '</div>';
+                resultDiv.innerHTML = '';
+            }
+        }
+
+        function copyJSONResult() {
+            const resultDiv = document.getElementById('json-result');
+            const text = resultDiv.textContent || resultDiv.innerText;
+            if (!text.trim()) {
+                showMessage('没有可复制的结果', 'error');
+                return;
+            }
+            copyToClipboard(text.trim());
+        }
+    </script>
+</body>
+</html>

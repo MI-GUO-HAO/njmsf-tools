@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL编解码 - 工具箱</title>
+    <meta name="description" content="免费的在线URL编解码工具，支持URL编码和解码转换，处理特殊字符和中文。">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🧰</div>
+                <span>工具箱</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html">← 返回首页</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>🔗 URL编解码</h1>
+                <p>URL编码和解码转换，处理特殊字符和中文</p>
+            </div>
+
+            <div class="card">
+                <div class="form-group">
+                    <label for="url-input">输入内容</label>
+                    <textarea id="url-input" placeholder="输入要编码或解码的文本..."></textarea>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="encodeURL()">URL编码</button>
+                    <button class="btn btn-secondary" onclick="decodeURL()">URL解码</button>
+                    <button class="btn btn-secondary" onclick="copyURLResult()">复制结果</button>
+                </div>
+                <div id="url-error"></div>
+                <div class="result-box" id="url-result"></div>
+            </div>
+
+            <div class="usage-info">
+                <h3>使用说明</h3>
+                <ul>
+                    <li>输入普通文本，点击「URL编码」将特殊字符转换为%格式</li>
+                    <li>输入编码后的URL，点击「URL解码」还原为原文</li>
+                    <li>支持中文和任意Unicode字符的处理</li>
+                    <li>点击「复制结果」将结果复制到剪贴板</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="current-year"></span> 工具箱 - 免费在线工具集合</p>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script>
+        function encodeURL() {
+            const input = document.getElementById('url-input').value;
+            const resultDiv = document.getElementById('url-result');
+            const errorDiv = document.getElementById('url-error');
+
+            if (!input) {
+                showMessage('请输入内容', 'error');
+                return;
+            }
+
+            try {
+                const encoded = encodeURIComponent(input);
+                resultDiv.textContent = encoded;
+                errorDiv.innerHTML = '';
+                showMessage('编码成功', 'success');
+            } catch (e) {
+                errorDiv.innerHTML = '<div class="error-message">编码失败：' + e.message + '</div>';
+            }
+        }
+
+        function decodeURL() {
+            const input = document.getElementById('url-input').value.trim();
+            const resultDiv = document.getElementById('url-result');
+            const errorDiv = document.getElementById('url-error');
+
+            if (!input) {
+                showMessage('请输入内容', 'error');
+                return;
+            }
+
+            try {
+                const decoded = decodeURIComponent(input);
+                resultDiv.textContent = decoded;
+                errorDiv.innerHTML = '';
+                showMessage('解码成功', 'success');
+            } catch (e) {
+                errorDiv.innerHTML = '<div class="error-message">解码失败：输入的不是有效的URL编码</div>';
+            }
+        }
+
+        function copyURLResult() {
+            const result = document.getElementById('url-result').textContent;
+            if (!result) {
+                showMessage('没有可复制的结果', 'error');
+                return;
+            }
+            copyToClipboard(result);
+        }
+    </script>
+</body>
+</html>

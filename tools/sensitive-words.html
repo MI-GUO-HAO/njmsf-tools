@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>敏感词/极限词检测 - 工具箱</title>
+    <meta name="description" content="免费的中文敏感词、极限词、医疗违禁词检测工具。纯前端本地运行，文案不上传服务器，免登录、保护隐私，发笔记/推文前自查避坑。">
+    <meta name="keywords" content="敏感词检测,极限词检测,违规词,广告法,小红书,公众号,自查,免登录">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .sw-badge { display:inline-flex; align-items:center; gap:6px; background:var(--primary-light); color:var(--primary-dark); border:1px solid #c5d9f7; padding:6px 12px; border-radius:50px; font-size:.85rem; font-weight:600; margin-bottom:18px; }
+        .sw-toolbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+        .sw-preview { background:var(--bg-secondary); border:1.5px solid var(--border-color); border-radius:var(--radius-sm); padding:16px; min-height:120px; line-height:1.9; font-size:1rem; white-space:pre-wrap; word-break:break-word; }
+        .sw-preview:empty::before { content:"检测结果会实时显示在这里…"; color:var(--text-muted); font-style:italic; }
+        mark.sw-absolute { background:#fce8e8; color:#c53929; padding:0 2px; border-radius:3px; }
+        mark.sw-exaggerate { background:#fef3e8; color:#b06000; padding:0 2px; border-radius:3px; }
+        mark.sw-medical { background:#fce8f3; color:#c2185b; padding:0 2px; border-radius:3px; }
+        mark.sw-induce { background:#e8eafd; color:#3949ab; padding:0 2px; border-radius:3px; }
+        mark.sw-sensitive { background:#e8f7fa; color:#00838f; padding:0 2px; border-radius:3px; }
+        .sw-stat { display:flex; gap:14px; flex-wrap:wrap; margin:16px 0; }
+        .sw-stat .pill { background:var(--bg-primary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:10px 16px; font-weight:600; }
+        .sw-stat .pill b { color:var(--danger); font-size:1.2rem; }
+        .sw-list { margin-top:8px; }
+        .sw-cat { margin-bottom:14px; }
+        .sw-cat h4 { font-size:.95rem; margin-bottom:6px; }
+        .sw-cat ul { list-style:none; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+        .sw-cat li { background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:6px 10px; font-size:.85rem; }
+        .sw-cat li b { color:var(--danger); }
+        .sw-cat li span { color:var(--secondary); }
+        .affiliate-strip { margin-top:24px; background:#fffaf0; border:1px dashed #e6c97a; border-radius:var(--radius-sm); padding:12px 16px; font-size:.9rem; color:#7a5b00; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo"><div class="logo-icon">🧰</div><span>工具箱</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">首页</a>
+                <a href="../article/index.html">评测</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>🛡️ 敏感词 / 极限词检测</h1>
+                <p>发笔记、推文前自查违规词，避免限流降权</p>
+            </div>
+            <div class="sw-badge">🔒 全部在你的浏览器本地检测，文案不会上传任何服务器</div>
+
+            <div class="card">
+                <div class="sw-toolbar">
+                    <button class="btn btn-secondary" onclick="loadSample()">载入示例</button>
+                    <button class="btn btn-secondary" onclick="clearText()">清空</button>
+                    <button class="btn btn-secondary" onclick="copyClean()">复制去词后文本</button>
+                </div>
+                <div class="form-group">
+                    <label>粘贴要检查的文案（标题 / 正文均可）</label>
+                    <textarea id="input" placeholder="在此粘贴你的文案，例如：本产品国家级顶级，销量第一，100%治愈…">本产品是国家级顶级特效，销量第一，100%治愈，绝对首选，限时抢购最后一天！</textarea>
+                </div>
+                <div class="sw-stat" id="stat"></div>
+                <div class="sw-preview" id="preview"></div>
+                <div class="sw-list" id="list"></div>
+            </div>
+
+            <div class="usage-info">
+                <h3>为什么用这个而不是别的？</h3>
+                <ul>
+                    <li><b>隐私</b>：没发布的文案直接粘进来本地检测，不会被第三方采集或留存。</li>
+                    <li><b>免登录、无广告</b>：打开即用，不像大厂工具要注册、要开屏广告。</li>
+                    <li>词库覆盖绝对化用语（最/第一/顶级）、虚假夸大、医疗违禁、诱导营销等常见雷区，并给出替换建议。</li>
+                </ul>
+            </div>
+
+            <!-- 联盟返佣位：把下面两个 href 换成你的阿里云/腾讯云大使专属链接，有人通过它购买你就能拿佣金 -->
+            <div class="affiliate-strip">
+                ☁️ 想自己做网站接这个流量？推荐 <a href="https://www.aliyun.com" target="_blank" rel="noopener">阿里云</a> / <a href="https://cloud.tencent.com" target="_blank" rel="noopener">腾讯云</a>（用我的专属链接你有优惠，我也拿佣金）。
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer"><p>© <span id="current-year"></span> 工具箱 · 免费在线工具集合</p></footer>
+    <script src="../js/common.js"></script>
+    <script>
+    // 词库：[词, 类别, 替换建议]
+    const WORDS = [
+        // 绝对化 / 极限词
+        ["国家级","absolute",""],["国家一级","absolute",""],["世界级","absolute",""],["顶级","absolute","优质"],["顶尖","absolute","出色"],
+        ["极品","absolute","精品"],["极致","absolute","出色"],["极佳","absolute","良好"],["绝佳","absolute","很好"],["绝对","absolute","较为"],
+        ["百分百","absolute","较高"],["100%","absolute","很高"],["最","absolute","较"],["最佳","absolute","较好"],["最好","absolute","很好"],
+        ["最大","absolute","较大"],["最小","absolute","较小"],["最强","absolute","较强"],["最高","absolute","较高"],["最低","absolute","较低"],
+        ["最新","absolute","较新"],["最全","absolute","较全"],["最省","absolute","更省"],["最优","absolute","优良"],["最便宜","absolute","实惠"],
+        ["最受欢迎","absolute","广受好评"],["第一","absolute","领先"],["唯一","absolute","少有"],["首个","absolute","早期"],["首选","absolute","推荐"],
+        ["首发","absolute","率先"],["首席","absolute","主要"],["王牌","absolute","主力"],["销冠","absolute","热销"],["销量第一","absolute","热销"],
+        ["全网第一","absolute","热门"],["全国第一","absolute","领先"],["全球第一","absolute","领先"],["名列前茅","absolute","靠前"],["领导品牌","absolute","知名品牌"],
+        ["领导者","absolute","代表"],["世界领先","absolute","领先"],["行业领先","absolute","领先"],["领先品牌","absolute","知名品牌"],["遥遥领先","absolute","领先"],
+        ["独家","absolute","特色"],["独创","absolute","自有"],["独享","absolute","专属"],["专属","absolute","定制"],["至尊","absolute","高端"],
+        ["巅峰","absolute","高端"],["永久","absolute","长期"],["万能","absolute","多用途"],["最后一天","absolute","活动期间"],
+        // 虚假夸大
+        ["史无前例","exaggerate",""],["绝无仅有","exaggerate",""],["空前","exaggerate",""],["无与伦比","exaggerate",""],["完美","exaggerate","优良"],
+        ["神器","exaggerate",""],["必备","exaggerate","推荐"],[" guaranteed","exaggerate",""],
+        // 医疗违禁
+        ["根治","medical","改善"],["治愈","medical","缓解"],["特效","medical","有效"],["一针见效","medical","逐步见效"],["药到病除","medical","有助恢复"],
+        ["无副作用","medical",""],["立竿见影","medical","较快见效"],["瞬间","medical","较快"],["立即","medical","较快"],["立马","medical","较快"],
+        ["包治百病","medical","调理"],["纯天然","medical",""],["100%有效","medical","有一定效果"],
+        // 诱导营销（易触发平台限流）
+        ["限时","induce",""],["抢购","induce",""],["疯抢","induce",""],["爆款","induce","热门"],["秒杀","induce",""],
+        ["最后机会","induce",""],["错过不再","induce",""],["全网最低","induce","高性价比"],["史上最低","induce","优惠"],["免费领取","induce",""],
+        ["点击就送","induce",""],["人人有份","induce",""],
+        // 敏感 / 风险
+        ["最高法","sensitive",""],["国家机密","sensitive",""],["谣言","sensitive",""],["代开发票","sensitive",""],["套现","sensitive",""]
+    ];
+    const CAT_NAME = { absolute:"绝对化/极限词", exaggerate:"虚假夸大", medical:"医疗违禁词", induce:"诱导营销词", sensitive:"敏感/风险词" };
+
+    const wordMap = new Map();
+    WORDS.forEach(([w,c,s]) => wordMap.set(w.toLowerCase(), [c,s]));
+    const sorted = WORDS.map(x=>x[0]).slice().sort((a,b)=>b.length-a.length);
+    function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    const re = new RegExp('(' + sorted.map(escapeRegExp).join('|') + ')', 'gi');
+
+    function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function detect(){
+        const text = document.getElementById('input').value;
+        const preview = document.getElementById('preview');
+        const stat = document.getElementById('stat');
+        const listBox = document.getElementById('list');
+        if(!text.trim()){ preview.innerHTML=''; stat.innerHTML=''; listBox.innerHTML=''; return; }
+        const byCat = {};
+        const uniq = {};
+        let count = 0;
+        const html = escapeHtml(text).replace(re, m => {
+            count++;
+            const info = wordMap.get(m.toLowerCase()) || ['sensitive',''];
+            const [cat, sug] = info;
+            byCat[cat] = (byCat[cat]||0) + 1;
+            const key = m.toLowerCase();
+            if(!uniq[key]) uniq[key] = { word:m, cat, sug, n:0 };
+            uniq[key].n++;
+            const tip = CAT_NAME[cat] + (sug ? ('，建议改：'+sug) : '');
+            return '<mark class="sw-'+cat+'" title="'+tip+'">'+m+'</mark>';
+        });
+        preview.innerHTML = html;
+        stat.innerHTML = '<div class="pill">共发现 <b>'+count+'</b> 处风险词</div>' +
+            Object.keys(byCat).map(c => '<div class="pill">'+CAT_NAME[c]+'：<b>'+byCat[c]+'</b></div>').join('');
+        const items = Object.values(uniq).sort((a,b)=>b.n-a.n);
+        listBox.innerHTML = items.length ? items.map(it =>
+            '<div class="sw-cat"><h4>'+CAT_NAME[it.cat]+'</h4><ul>' +
+            '<li><b>'+escapeHtml(it.word)+'</b> ×'+it.n+(it.sug?' <span>→ 改：'+it.sug+'</span>':'')+'</li></ul></div>'
+        ).join('') : '<div class="success-message">未检测到已知风险词，相对安全 ✅</div>';
+    }
+
+    function loadSample(){
+        document.getElementById('input').value = "本产品是国家级顶级特效，销量第一，100%治愈，绝对首选，限时抢购最后一天！";
+        detect();
+    }
+    function clearText(){ document.getElementById('input').value=''; detect(); }
+    function copyClean(){
+        const text = document.getElementById('input').value;
+        const clean = text.replace(re, m => { const s = (wordMap.get(m.toLowerCase())||[])[1]; return s ? s : ''; });
+        copyToClipboard(clean);
+    }
+    document.getElementById('input').addEventListener('input', detect);
+    detect();
+    </script>
+</body>
+</html>

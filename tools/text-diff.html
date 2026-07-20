@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本对比 - 工具箱</title>
+    <meta name="description" content="在线文本对比工具，双栏高亮显示两段文本的新增（绿色）与删除（红色）差异。">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .field { margin-bottom:14px; }
+        .field label { display:block; font-weight:600; margin-bottom:6px; color:var(--text-primary,#222); }
+        .conv-grid textarea{ width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-family:monospace; box-sizing:border-box; }
+        .btn{ background:var(--primary,#1a73e8); color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:600; }
+        .btn:hover{ opacity:.9; }
+        .diff-box{ min-height:80px; }
+        @media(max-width:600px){ .conv-grid{ grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo"><div class="logo-icon">🧰</div><span>工具箱</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">首页</a>
+                <a href="../article/index.html">评测</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>📝 文本对比</h1>
+                <p>对比两段文本的差异，左侧红色为“被删除”，右侧绿色为“新增”</p>
+            </div>
+            <div class="card">
+                <div class="conv-grid">
+                    <div class="field"><label>文本 A（原文本）</label><textarea id="ta" rows="8" placeholder="粘贴第一段文本..."></textarea></div>
+                    <div class="field"><label>文本 B（新文本）</label><textarea id="tb" rows="8" placeholder="粘贴第二段文本..."></textarea></div>
+                </div>
+                <button class="btn" onclick="runDiff()">开始对比</button>
+                <div class="diff-container" style="margin-top:16px;">
+                    <div><div class="pane-header" style="font-weight:600;margin-bottom:8px;color:var(--danger,#c5221f);">A · 删除（红）</div><div class="diff-box" id="outA"></div></div>
+                    <div><div class="pane-header" style="font-weight:600;margin-bottom:8px;color:var(--secondary,#137333);">B · 新增（绿）</div><div class="diff-box" id="outB"></div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer"><p>© <span id="current-year"></span> 工具箱 · 免费在线工具集合</p></footer>
+    <script src="../js/common.js"></script>
+    <script>
+    function runDiff(){
+        const a = document.getElementById('ta').value;
+        const b = document.getElementById('tb').value;
+        const {resultA, resultB} = diffText(a, b);
+        renderDiff(resultA, document.getElementById('outA'));
+        renderDiff(resultB, document.getElementById('outB'));
+    }
+    </script>
+</body>
+</html>

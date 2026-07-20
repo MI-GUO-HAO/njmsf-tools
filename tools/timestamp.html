@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间戳转换 - 工具箱</title>
+    <meta name="description" content="免费的在线时间戳转换工具，Unix时间戳与日期时间相互转换，显示实时当前时间戳。">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🧰</div>
+                <span>工具箱</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html">← 返回首页</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>⏰ 时间戳转换</h1>
+                <p>Unix时间戳与日期时间相互转换</p>
+            </div>
+
+            <div class="timestamp-display">
+                <div class="current-timestamp" id="current-timestamp">0</div>
+                <div class="current-time" id="current-time">-</div>
+            </div>
+
+            <div class="card">
+                <div class="form-group">
+                    <label for="ts-input">时间戳（秒或毫秒）</label>
+                    <input type="text" id="ts-input" placeholder="例如：1700000000">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="tsToDate()">转换为日期时间</button>
+                </div>
+                <div class="result-box" id="ts-date-result"></div>
+            </div>
+
+            <div class="card">
+                <div class="form-group">
+                    <label for="date-input">日期时间</label>
+                    <input type="datetime-local" id="date-input">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="dateToTs()">转换为时间戳</button>
+                </div>
+                <div class="result-box" id="date-ts-result"></div>
+            </div>
+
+            <div class="usage-info">
+                <h3>使用说明</h3>
+                <ul>
+                    <li>页面顶部实时显示当前Unix时间戳和日期时间</li>
+                    <li>输入时间戳（支持秒级或毫秒级），点击转换得到日期时间</li>
+                    <li>选择日期时间，点击转换得到Unix时间戳</li>
+                    <li>自动识别秒级（10位）和毫秒级（13位）时间戳</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="current-year"></span> 工具箱 - 免费在线工具集合</p>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script>
+        // 更新当前时间戳
+        function updateCurrentTimestamp() {
+            const now = Date.now();
+            const seconds = Math.floor(now / 1000);
+            document.getElementById('current-timestamp').textContent = seconds;
+            document.getElementById('current-time').textContent = new Date().toLocaleString('zh-CN');
+        }
+        setInterval(updateCurrentTimestamp, 1000);
+        updateCurrentTimestamp();
+
+        function tsToDate() {
+            const input = document.getElementById('ts-input').value.trim();
+            const resultDiv = document.getElementById('ts-date-result');
+
+            if (!input || isNaN(input)) {
+                showMessage('请输入有效的时间戳数字', 'error');
+                return;
+            }
+
+            let ts = parseInt(input);
+            // 自动识别秒级和毫秒级
+            if (input.length <= 10) {
+                ts = ts * 1000;
+            }
+
+            const date = new Date(ts);
+            if (isNaN(date.getTime())) {
+                showMessage('无效的时间戳', 'error');
+                return;
+            }
+
+            const result = `本地时间：${date.toLocaleString('zh-CN')}\n`
+                + `UTC时间：${date.toUTCString()}\n`
+                + `ISO格式：${date.toISOString()}`;
+            resultDiv.textContent = result;
+            showMessage('转换成功', 'success');
+        }
+
+        function dateToTs() {
+            const input = document.getElementById('date-input').value;
+            const resultDiv = document.getElementById('date-ts-result');
+
+            if (!input) {
+                showMessage('请选择日期时间', 'error');
+                return;
+            }
+
+            const date = new Date(input);
+            if (isNaN(date.getTime())) {
+                showMessage('无效的日期时间', 'error');
+                return;
+            }
+
+            const seconds = Math.floor(date.getTime() / 1000);
+            const milliseconds = date.getTime();
+            resultDiv.textContent = `秒级时间戳：${seconds}\n毫秒级时间戳：${milliseconds}`;
+            showMessage('转换成功', 'success');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown编辑器 - 工具箱</title>
+    <meta name="description" content="在线 Markdown 编辑与实时预览工具，支持标题、列表、代码块、表格等常用语法，可导出 HTML 和 .md 文件。">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo"><div class="logo-icon">🧰</div><span>工具箱</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="菜单">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">首页</a>
+                <a href="../article/index.html">评测</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>✍️ Markdown 编辑器</h1>
+                <p>左侧编辑，右侧实时预览，支持导出 HTML 与 .md 文件</p>
+            </div>
+            <div class="card">
+                <div class="btn-group" style="margin-bottom:16px;">
+                    <button class="btn btn-secondary" onclick="loadSample()">插入示例</button>
+                    <button class="btn btn-secondary" onclick="copyHtml()">复制 HTML</button>
+                    <button class="btn btn-secondary" onclick="downloadMd()">下载 .md</button>
+                    <button class="btn btn-primary" onclick="downloadHtml()">下载 HTML</button>
+                </div>
+                <div class="editor-container">
+                    <div class="editor-pane">
+                        <div class="pane-header">编辑</div>
+                        <textarea id="md" placeholder="在此输入 Markdown..."></textarea>
+                    </div>
+                    <div class="preview-pane">
+                        <div class="pane-header">预览</div>
+                        <div class="preview-content" id="preview"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="usage-info">
+                <h3>支持语法</h3>
+                <ul>
+                    <li>标题：# ~ ###### ；加粗 **文字** ；斜体 *文字* ；行内代码 `code`</li>
+                    <li>代码块：用 ``` 包裹；引用：以 &gt; 开头</li>
+                    <li>无序列表：- / * ；有序列表：1. ；分割线：--- ；链接：[文字](网址)</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer"><p>© <span id="current-year"></span> 工具箱 · 免费在线工具集合</p></footer>
+    <script src="../js/common.js"></script>
+    <script>
+    function inlineMd(text){
+        let s = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        s = s.replace(/`([^`]+)`/g, function(m,c){ return '<code>'+c+'</code>'; });
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+        s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        return s;
+    }
+    function mdToHtml(src){
+        src = (src||'').replace(/\r\n?/g,'\n');
+        const codeBlocks = [];
+        src = src.replace(/```([\s\S]*?)```/g, function(m, code){
+            const idx = codeBlocks.length;
+            codeBlocks.push(code.replace(/^\n/,'').replace(/\n$/,''));
+            return '\u0000C'+idx+'\u0000';
+        });
+        const lines = src.split('\n');
+        let html = '', i = 0, listType = null;
+        function closeList(){ if(listType){ html += '</'+listType+'>'; listType = null; } }
+        while(i < lines.length){
+            const line = lines[i];
+            const cp = line.match(/^\u0000C(\d+)\u0000$/);
+            if(cp){ closeList(); html += '<pre><code>'+inlineMd(codeBlocks[+cp[1]])+'</code></pre>'; i++; continue; }
+            if(/^\s*([-*_])\1\1+\s*$/.test(line)){ closeList(); html += '<hr>'; i++; continue; }
+            const h = line.match(/^(#{1,6})\s+(.*)$/);
+            if(h){ closeList(); const lvl = h[1].length; html += '<h'+lvl+'>'+inlineMd(h[2])+'</h'+lvl+'>'; i++; continue; }
+            if(/^>\s?/.test(line)){
+                closeList();
+                const quote = [];
+                while(i < lines.length && /^>\s?/.test(lines[i])){ quote.push(lines[i].replace(/^>\s?/,'')); i++; }
+                html += '<blockquote>'+inlineMd(quote.join(' '))+'</blockquote>';
+                continue;
+            }
+            const ul = line.match(/^\s*[-*+]\s+(.*)$/);
+            if(ul){ if(listType!=='ul'){ closeList(); html += '<ul>'; listType = 'ul'; } html += '<li>'+inlineMd(ul[1])+'</li>'; i++; continue; }
+            const ol = line.match(/^\s*\d+\.\s+(.*)$/);
+            if(ol){ if(listType!=='ol'){ closeList(); html += '<ol>'; listType = 'ol'; } html += '<li>'+inlineMd(ol[1])+'</li>'; i++; continue; }
+            if(/^\s*$/.test(line)){ closeList(); i++; continue; }
+            closeList();
+            const para = [line]; i++;
+            while(i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,6})\s/.test(lines[i]) &&
+                  !/^>\s?/.test(lines[i]) && !/^\s*[-*+]\s+/.test(lines[i]) && !/^\s*\d+\.\s+/.test(lines[i]) &&
+                  !/^\u0000C\d+\u0000$/.test(lines[i]) && !/^\s*([-*_])\1\1+\s*$/.test(lines[i])){
+                para.push(lines[i]); i++;
+            }
+            html += '<p>'+inlineMd(para.join(' '))+'</p>';
+        }
+        closeList();
+        return html;
+    }
+    function render(){ document.getElementById('preview').innerHTML = mdToHtml(document.getElementById('md').value); }
+    document.getElementById('md').addEventListener('input', render);
+    function loadSample(){
+        document.getElementById('md').value =
+            '# 示例标题\n\n这是一段 **加粗** 和 *斜体* 文本，还有一个 `行内代码`。\n\n## 列表\n\n- 项目一\n- 项目二\n\n1. 第一\n2. 第二\n\n> 这是引用。\n\n```\n代码块示例\n```\n\n链接：[工具箱](https://njmsf.top)\n\n---';
+        render();
+    }
+    function copyHtml(){ copyToClipboard(mdToHtml(document.getElementById('md').value)); }
+    function downloadMd(){ downloadFile(document.getElementById('md').value, 'document.md', 'text/markdown;charset=utf-8'); }
+    function downloadHtml(){
+        const body = mdToHtml(document.getElementById('md').value);
+        const full = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="UTF-8">\n<title>Markdown 导出</title>\n</head>\n<body>\n'+body+'\n</body>\n</html>';
+        downloadFile(full, 'document.html', 'text/html;charset=utf-8');
+    }
+    loadSample();
+    </script>
+</body>
+</html>

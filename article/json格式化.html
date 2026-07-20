@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON格式化 详细介绍与使用指南 - 工具箱</title>
+<meta name="description" content="JSON格式化是一款专为处理和美化JSON数据设计的工具，帮助开发者快速优化、验证和解析JSON结构，提升开发效率。">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",Arial,sans-serif; line-height:1.75; color:#333; background:#f6f7f9; }
+.site-header { background:#fff; border-bottom:1px solid #e8e8e8; padding:14px 0; position:sticky; top:0; z-index:100; }
+.header-container { max-width:900px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+.logo { font-size:20px; font-weight:700; color:#1a73e8; text-decoration:none; display:flex; align-items:center; gap:8px; }
+.nav-links a { color:#555; text-decoration:none; margin-left:20px; font-size:14px; }
+.nav-links a:hover { color:#1a73e8; }
+.container { max-width:900px; margin:0 auto; padding:24px 20px; }
+.article { background:#fff; border-radius:12px; padding:34px; box-shadow:0 2px 10px rgba(0,0,0,.05); margin-top:20px; }
+.back-link { display:inline-block; margin:20px 0 0; color:#1a73e8; text-decoration:none; font-size:14px; }
+.article h1 { font-size:28px; margin-bottom:10px; color:#1a1a1a; }
+.article h2 { font-size:21px; margin:30px 0 12px; color:#1a73e8; }
+.article h3 { font-size:17px; margin:22px 0 10px; color:#222; }
+.article p { margin-bottom:14px; color:#444; }
+.article ul { margin:14px 0; padding-left:22px; }
+.article li { margin-bottom:8px; color:#444; }
+.site-footer { text-align:center; color:#999; font-size:13px; padding:30px 20px; margin-top:40px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+.card { background:#fff; border-radius:10px; padding:18px; box-shadow:0 2px 8px rgba(0,0,0,.05); transition:.2s; }
+.card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.card h3 { font-size:16px; margin-bottom:8px; }
+.card h3 a { color:#1a73e8; text-decoration:none; }
+.card p { color:#666; font-size:13px; }
+.card-meta { margin-top:10px; font-size:12px; color:#999; }
+.section-title { font-size:22px; font-weight:600; margin:8px 0 4px; color:#1a73e8; }
+.page-intro { color:#666; font-size:15px; margin-bottom:6px; }
+@media(max-width:600px){ .article{padding:20px;} .article h1{font-size:23px;} }</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-container">
+    <a href="../index.html" class="logo">🧰 工具箱</a>
+    <nav class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="./">评测</a>
+      <a href="../about.html">关于</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <a href="../index.html" class="back-link">&larr; 返回首页</a>
+  <article class="article">
+<h1>JSON格式化：让数据更清晰的神器</h1>
+<h2>工具简介</h2>
+<p>JSON格式化是一款专为处理和美化JSON数据设计的工具，帮助开发者快速优化、验证和解析JSON结构，提升开发效率。</p>
+<h2>核心功能</h2>
+<p>**1. 自动格式化** 该工具能自动对乱序或压缩的JSON进行格式化，使其结构清晰、层级分明，便于阅读和调试。无论你是处理API响应还是配置文件，都能轻松应对。</p>
+<p>**2. 语法验证** 内置的JSON校验功能可以检测语法错误，如缺少引号、逗号或括号不匹配等，帮助你在代码运行前发现问题，避免潜在的崩溃风险。</p>
+<p>**3. 数据高亮与折叠** 支持按层级展开或折叠JSON内容，并通过颜色区分键值对，使复杂的数据结构一目了然，提升可读性。</p>
+<p>**4. 复制与导出** 用户可将格式化后的JSON直接复制到剪贴板，或导出为文件，方便在不同项目中使用，减少重复劳动。</p>
+<h2>适用人群</h2>
+<ul>
+<li>前端和后端开发者，尤其是频繁处理API数据的人员</li>
+<li>配置管理与数据迁移工程师</li>
+<li>初学者或需要快速上手JSON操作的非技术用户</li>
+</ul>
+<h2>优点和缺点</h2>
+<p>**优点：**</p>
+<ul>
+<li>操作简单，界面友好，无需复杂设置即可使用</li>
+<li>支持多平台，兼容性强，适合多种开发环境</li>
+<li>提升工作效率，减少手动格式化的繁琐过程</li>
+</ul>
+<p>**缺点：**</p>
+<ul>
+<li>功能相对基础，缺乏高级编辑或脚本处理能力</li>
+<li>对于超大JSON文件处理速度较慢</li>
+</ul>
+<h2>使用建议</h2>
+<p>对于新手来说，建议从简单的JSON数据开始练习，逐步熟悉格式化和验证流程。同时，可以结合其他工具（如Postman或VS Code插件）来增强整体工作流。遇到问题时，可以参考官方文档或社区讨论，获取更多帮助。</p>
+<h2>总结</h2>
+<p>JSON格式化是一款实用且高效的工具，无论是日常开发还是数据处理，都能显著提升你的工作效率。</p>
+  </article>
+    <!-- ===== 流量统计代码（占位）=====
+         部署后取消注释并填入你的统计 ID：
+         51.la（免备案，推荐）：
+           <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+           <script>LA.init({id:"在此填51la_id",ck:"你的ck",autoTrack:true})</script>
+         百度统计：
+           <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?在此填baidu_id";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
+         Cloudflare Web Analytics（Cloudflare Pages 后台开启后自动注入，无需此段）：
+           <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"在此填token"}'></script>
+    -->
+
+</main>
+<footer class="site-footer"><p>&copy; 2026 工具箱 · 免费在线工具集合</p></footer>
+</body>
+</html>

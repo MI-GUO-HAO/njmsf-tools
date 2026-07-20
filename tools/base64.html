@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64编解码 - 工具箱</title>
+    <meta name="description" content="免费的在线Base64编解码工具，支持文本与Base64编码相互转换，支持中文，结果可复制。">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🧰</div>
+                <span>工具箱</span>
+            </a>
+            <nav class="nav-links">
+                <a href="../index.html">← 返回首页</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tool-page">
+            <div class="tool-header">
+                <h1>🔤 Base64编解码</h1>
+                <p>文本与Base64编码相互转换，支持中文</p>
+            </div>
+
+            <div class="card">
+                <div class="form-group">
+                    <label for="base64-input">输入内容</label>
+                    <textarea id="base64-input" placeholder="输入要编码或解码的文本..."></textarea>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="encodeBase64()">编码 → Base64</button>
+                    <button class="btn btn-secondary" onclick="decodeBase64()">解码 → 文本</button>
+                    <button class="btn btn-secondary" onclick="copyBase64Result()">复制结果</button>
+                </div>
+                <div id="base64-error"></div>
+                <div class="result-box" id="base64-result"></div>
+            </div>
+
+            <div class="usage-info">
+                <h3>使用说明</h3>
+                <ul>
+                    <li>在文本框中输入普通文本，点击「编码」转换为Base64</li>
+                    <li>输入Base64编码字符串，点击「解码」还原为原文</li>
+                    <li>支持中文和任意Unicode字符的编解码</li>
+                    <li>点击「复制结果」将结果复制到剪贴板</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="current-year"></span> 工具箱 - 免费在线工具集合</p>
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script>
+        function encodeBase64() {
+            const input = document.getElementById('base64-input').value;
+            const resultDiv = document.getElementById('base64-result');
+            const errorDiv = document.getElementById('base64-error');
+
+            if (!input) {
+                showMessage('请输入内容', 'error');
+                return;
+            }
+
+            try {
+                // 使用UTF-8编码支持中文
+                const utf8Bytes = new TextEncoder().encode(input);
+                const base64 = btoa(String.fromCharCode(...utf8Bytes));
+                resultDiv.textContent = base64;
+                errorDiv.innerHTML = '';
+                showMessage('编码成功', 'success');
+            } catch (e) {
+                errorDiv.innerHTML = '<div class="error-message">编码失败：' + e.message + '</div>';
+            }
+        }
+
+        function decodeBase64() {
+            const input = document.getElementById('base64-input').value.trim();
+            const resultDiv = document.getElementById('base64-result');
+            const errorDiv = document.getElementById('base64-error');
+
+            if (!input) {
+                showMessage('请输入内容', 'error');
+                return;
+            }
+
+            try {
+                const binary = atob(input);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i++) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                const decoded = new TextDecoder().decode(bytes);
+                resultDiv.textContent = decoded;
+                errorDiv.innerHTML = '';
+                showMessage('解码成功', 'success');
+            } catch (e) {
+                errorDiv.innerHTML = '<div class="error-message">解码失败：输入的不是有效的Base64编码</div>';
+            }
+        }
+
+        function copyBase64Result() {
+            const result = document.getElementById('base64-result').textContent;
+            if (!result) {
+                showMessage('没有可复制的结果', 'error');
+                return;
+            }
+            copyToClipboard(result);
+        }
+    </script>
+</body>
+</html>
