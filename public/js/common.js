@@ -329,6 +329,7 @@ function hslToRgb(h, s, l) {
 // 部署后，把下面引号里换成你的 51.la 统计 ID（官网 sdk.51.la 注册，无需 ICP 备案），
 // 全站所有页面会自动加载统计，无需逐个修改页面。留空则不加统计。
 window.SITE_ANALYTICS_ID = '3Qcg75RJeJ8BQX6c'; // 例如 '3xAbC123xxxx'
+window.ADSENSE_ID = ''; // 例如 'ca-pub-xxxxxxxx'，填了才显示广告
 function loadAnalytics() {
     const id = window.SITE_ANALYTICS_ID;
     if (!id) return;
@@ -342,6 +343,20 @@ function loadAnalytics() {
     document.head.appendChild(init);
 }
 
+// 广告（AdSense），仅当配置了 ADSENSE_ID
+function loadAds() {
+    const id = window.ADSENSE_ID;
+    if (!id) return;
+    const s = document.createElement('script');
+    s.async = true; s.crossOrigin = 'anonymous';
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + id;
+    document.head.appendChild(s);
+    const slot = document.getElementById('ad-slot');
+    if (slot) {
+        slot.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="' + id + '" data-ad-slot="REPLACE_WITH_YOUR_AD_UNIT_ID" data-ad-format="auto"></ins>';
+    }
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     // 当前年份
@@ -349,6 +364,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     // 流量统计
     loadAnalytics();
+    // 广告（填了 ADSENSE_ID 才生效）
+    loadAds();
 });
 
 

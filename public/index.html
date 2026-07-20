@@ -21,6 +21,14 @@
         .pp-links { display:flex; gap:14px; flex-wrap:wrap; font-weight:600; }
         .pp-links a { color:var(--primary); }
         @media(max-width:600px){ .privacy-promo{ flex-direction:column; gap:8px; } }
+        .monetize-box{ display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:900px; margin:8px auto 36px; }
+        .mb-card{ background:#fff; border:1px solid #e3e8ef; border-radius:var(--radius-md); padding:20px 22px; }
+        .mb-card h3{ font-size:1.05rem; margin-bottom:8px; color:var(--primary-dark); }
+        .mb-card p{ font-size:.9rem; color:#445; line-height:1.7; }
+        .mb-note{ color:#b45309; font-weight:600; }
+        .mb-card.ad{ display:flex; align-items:center; justify-content:center; background:#fafbfc; }
+        .ad-tip{ color:#9aa; font-size:.85rem; }
+        @media(max-width:600px){ .monetize-box{ grid-template-columns:1fr; } }
     </style>
 </head>
 <body>
@@ -146,6 +154,18 @@
                 <p>实时统计字数，对照各平台标题上限，避免被截断</p>
             </div>
         </div>
+
+        <!-- 访客留存 + 变现位 -->
+        <section class="monetize-box">
+            <div class="mb-card follow">
+                <h3>📣 关注我们，新工具第一时间知道</h3>
+                <p>搜索公众号 <b>「njmsf工具箱」</b>（占位，待你填真实公众号）加入读者群，避坑干货优先发。</p>
+                <p class="mb-note">👉 想接广告变现？把 AdSense / 百度联盟 ID 发我，我直接挂上——有流量就有收入。</p>
+            </div>
+            <div class="mb-card ad" id="ad-slot">
+                <p class="ad-tip">广告位（AdSense / 百度联盟，配置 ID 后自动展示）</p>
+            </div>
+        </section>
     </main>
 
     <!-- 底部 -->
