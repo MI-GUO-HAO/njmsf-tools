@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="免费在线JSON格式化工具，支持JSON格式化、压缩、校验，显示错误位置">
+  <title>JSON格式化 - 在线工具箱</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="../about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">首页</a>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span>JSON格式化</span>
+    </div>
+
+    <div class="page-header">
+      <h1><div class="tool-icon">&#128203;</div>JSON格式化</h1>
+      <p>JSON格式化、压缩、校验，定位错误位置</p>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-section">
+        <label for="jsonInput">输入 JSON</label>
+        <textarea id="jsonInput" rows="8" placeholder='{"example": "粘贴JSON到这里", "number": 123}'></textarea>
+      </div>
+
+      <div class="tool-section">
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="formatJSON()">&#128203; 格式化</button>
+          <button class="btn btn-secondary" onclick="minifyJSON()">&#128229; 压缩</button>
+          <button class="btn btn-secondary" onclick="validateJSON()">&#9989; 校验</button>
+          <button class="btn btn-success" onclick="copyResult()">&#128203; 复制结果</button>
+          <button class="btn btn-danger" onclick="clearAll()">&#10060; 清空</button>
+        </div>
+      </div>
+
+      <div id="message" class="message"></div>
+
+      <div class="tool-section" id="resultSection" style="display:none;">
+        <div class="tool-section-title">结果</div>
+        <div class="result-box" id="jsonResult"></div>
+      </div>
+    </div>
+
+    <div class="related-tools">
+      <h3>&#128161; 相关工具推荐</h3>
+      <div class="related-tools-grid">
+        <a href="base64.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128220;</div>
+          <span>Base64编解码</span>
+        </a>
+        <a href="url-encoder.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128279;</div>
+          <span>URL编解码</span>
+        </a>
+        <a href="text-tools.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128221;</div>
+          <span>文本工具</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="../about.html">关于我们</a></p>
+  </footer>
+
+  <script>
+    function showMessage(text, type) {
+      const msg = document.getElementById('message');
+      msg.textContent = text;
+      msg.className = 'message show message-' + type;
+      setTimeout(() => msg.classList.remove('show'), 4000);
+    }
+
+    function formatJSON() {
+      const input = document.getElementById('jsonInput').value.trim();
+      if (!input) {
+        showMessage('请输入JSON内容', 'warning');
+        return;
+      }
+      try {
+        const obj = JSON.parse(input);
+        const formatted = JSON.stringify(obj, null, 2);
+        document.getElementById('jsonResult').innerHTML = '<pre>' + escapeHtml(formatted) + '</pre>';
+        document.getElementById('resultSection').style.display = 'block';
+        showMessage('格式化成功', 'success');
+      } catch (e) {
+        showMessage('JSON格式错误: ' + e.message, 'error');
+      }
+    }
+
+    function minifyJSON() {
+      const input = document.getElementById('jsonInput').value.trim();
+      if (!input) {
+        showMessage('请输入JSON内容', 'warning');
+        return;
+      }
+      try {
+        const obj = JSON.parse(input);
+        const minified = JSON.stringify(obj);
+        document.getElementById('jsonResult').innerHTML = '<pre>' + escapeHtml(minified) + '</pre>';
+        document.getElementById('resultSection').style.display = 'block';
+        showMessage('压缩成功', 'success');
+      } catch (e) {
+        showMessage('JSON格式错误: ' + e.message, 'error');
+      }
+    }
+
+    function validateJSON() {
+      const input = document.getElementById('jsonInput').value.trim();
+      if (!input) {
+        showMessage('请输入JSON内容', 'warning');
+        return;
+      }
+      try {
+        JSON.parse(input);
+        showMessage('JSON格式正确', 'success');
+      } catch (e) {
+        showMessage('JSON格式错误: ' + e.message, 'error');
+      }
+    }
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    async function copyResult() {
+      const text = document.getElementById('jsonResult').textContent;
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        showMessage('已复制到剪贴板', 'success');
+      } catch (e) {
+        showMessage('复制失败', 'error');
+      }
+    }
+
+    function clearAll() {
+      document.getElementById('jsonInput').value = '';
+      document.getElementById('jsonResult').innerHTML = '';
+      document.getElementById('resultSection').style.display = 'none';
+      document.getElementById('message').classList.remove('show');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="免费在线Markdown编辑器，左侧输入右侧实时预览">
+  <title>Markdown编辑器 - 在线工具箱</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="../about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">首页</a>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span>Markdown编辑器</span>
+    </div>
+
+    <div class="page-header">
+      <h1><div class="tool-icon">&#9997;</div>Markdown编辑器</h1>
+      <p>左侧输入Markdown，右侧实时预览</p>
+    </div>
+
+    <div class="tool-container">
+      <div class="btn-group" style="margin-bottom:1rem;">
+        <button class="btn btn-sm btn-secondary" onclick="insertText('# 标题\n')">H1</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('## 标题\n')">H2</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('**粗体**')">粗体</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('*斜体*')">斜体</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('`代码`')">代码</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('\n- 列表项\n')">列表</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('\n> 引用\n')">引用</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('\n```\n代码块\n```\n')">代码块</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('\n| 列1 | 列2 |\n|-----|-----|\n| A   | B   |\n')">表格</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('\n[链接文字](https://example.com)\n')">链接</button>
+        <button class="btn btn-sm btn-secondary" onclick="insertText('\n![图片描述](https://example.com/image.png)\n')">图片</button>
+        <button class="btn btn-sm btn-success" onclick="copyHTML()">复制HTML</button>
+      </div>
+
+      <div class="split-layout">
+        <div class="input-panel">
+          <label>Markdown 输入</label>
+          <textarea id="mdInput" placeholder="在此输入 Markdown...
+
+# 标题
+这是一段**粗体**和*斜体*文字。
+
+- 列表项1
+- 列表项2
+
+> 引用文本
+
+```
+代码块
+```
+"># 欢迎使用 Markdown 编辑器
+
+这是一段示例文本，支持 **粗体**、*斜体* 和 `代码`。
+
+## 列表示例
+- 无序列表项 1
+- 无序列表项 2
+- 无序列表项 3
+
+## 列表示例（有序）
+1. 第一步
+2. 第二步
+3. 第三步
+
+## 引用示例
+> 这是一段引用文本。
+
+## 代码示例
+```javascript
+console.log('Hello, World!');
+```
+
+## 表格示例
+| 姓名 | 年龄 | 城市 |
+|------|------|------|
+| 张三 | 28   | 北京 |
+| 李四 | 32   | 上海 |
+</textarea>
+        </div>
+        <div class="output-panel">
+          <label>实时预览</label>
+          <div class="output-content" id="mdPreview"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="related-tools">
+      <h3>&#128161; 相关工具推荐</h3>
+      <div class="related-tools-grid">
+        <a href="word-counter.html" class="related-tool-item">
+          <div class="related-tool-icon">&#9998;</div>
+          <span>字数统计</span>
+        </a>
+        <a href="text-tools.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128221;</div>
+          <span>文本工具</span>
+        </a>
+        <a href="json-formatter.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128203;</div>
+          <span>JSON格式化</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="../about.html">关于我们</a></p>
+  </footer>
+
+  <script>
+    const mdInput = document.getElementById('mdInput');
+    const mdPreview = document.getElementById('mdPreview');
+
+    function updatePreview() {
+      mdPreview.innerHTML = marked.parse(mdInput.value);
+    }
+
+    mdInput.addEventListener('input', updatePreview);
+
+    function insertText(text) {
+      const start = mdInput.selectionStart;
+      const end = mdInput.selectionEnd;
+      const before = mdInput.value.substring(0, start);
+      const after = mdInput.value.substring(end);
+      mdInput.value = before + text + after;
+      mdInput.selectionStart = mdInput.selectionEnd = start + text.length;
+      mdInput.focus();
+      updatePreview();
+    }
+
+    async function copyHTML() {
+      const html = mdPreview.innerHTML;
+      try { await navigator.clipboard.writeText(html); alert('HTML已复制'); }
+      catch (e) { alert('复制失败'); }
+    }
+
+    window.addEventListener('load', updatePreview);
+  </script>
+</body>
+</html>

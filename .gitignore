@@ -1,0 +1,11 @@
+# 密钥与本地环境，禁止入库
+.env
+.env.*
+scripts/
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+.workbuddy/
+.DS_Store

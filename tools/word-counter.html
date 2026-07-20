@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="免费在线字数统计工具，统计字数、字符数、行数、段落数，分析关键词频率">
+  <title>字数统计 - 在线工具箱</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="../about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">首页</a>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span>字数统计</span>
+    </div>
+
+    <div class="page-header">
+      <h1><div class="tool-icon">&#9998;</div>字数统计</h1>
+      <p>统计字数、字符数、行数、段落数，分析关键词频率</p>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-section">
+        <label for="textInput">输入文本</label>
+        <textarea id="textInput" rows="12" placeholder="在此粘贴或输入文本..." oninput="analyze()"></textarea>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalChars">0</div>
+          <div class="stat-label">总字符数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="chineseChars">0</div>
+          <div class="stat-label">中文字符</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="wordCount">0</div>
+          <div class="stat-label">词数（含中文）</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="lineCount">0</div>
+          <div class="stat-label">行数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="paragraphCount">0</div>
+          <div class="stat-label">段落数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="spaceCount">0</div>
+          <div class="stat-label">空格数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="punctuationCount">0</div>
+          <div class="stat-label">标点符号</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="readingTime">0秒</div>
+          <div class="stat-label">预计阅读时间</div>
+        </div>
+      </div>
+
+      <div class="tool-section" id="freqSection" style="display:none;">
+        <div class="tool-section-title">高频词汇（出现2次以上）</div>
+        <div class="result-box" id="freqResult"></div>
+      </div>
+    </div>
+
+    <div class="related-tools">
+      <h3>&#128161; 相关工具推荐</h3>
+      <div class="related-tools-grid">
+        <a href="text-tools.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128221;</div>
+          <span>文本去重排序</span>
+        </a>
+        <a href="markdown-editor.html" class="related-tool-item">
+          <div class="related-tool-icon">&#9997;</div>
+          <span>Markdown编辑器</span>
+        </a>
+        <a href="json-formatter.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128203;</div>
+          <span>JSON格式化</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="../about.html">关于我们</a></p>
+  </footer>
+
+  <script>
+    function analyze() {
+      const text = document.getElementById('textInput').value;
+      const totalChars = text.length;
+      const chineseChars = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
+      const lines = text.length === 0 ? 0 : text.split('\n').length;
+      const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+      const spaceCount = (text.match(/\s/g) || []).length;
+      const punctuationCount = (text.match(/[\u3000-\u303f\uff00-\uffef\u2000-\u206f\u0021-\u002f\u003a-\u0040\u005b-\u0060\u007b-\u007e]/g) || []).length;
+      const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+      const wordCount = chineseChars + words;
+      const readingSeconds = Math.ceil(wordCount / 5);
+      const readingTime = readingSeconds < 60 ? readingSeconds + '秒' : Math.ceil(readingSeconds/60) + '分钟';
+
+      document.getElementById('totalChars').textContent = totalChars;
+      document.getElementById('chineseChars').textContent = chineseChars;
+      document.getElementById('wordCount').textContent = wordCount;
+      document.getElementById('lineCount').textContent = lines;
+      document.getElementById('paragraphCount').textContent = paragraphs;
+      document.getElementById('spaceCount').textContent = spaceCount;
+      document.getElementById('punctuationCount').textContent = punctuationCount;
+      document.getElementById('readingTime').textContent = readingTime;
+
+      // 频率分析
+      const freq = {};
+      const tokens = text.toLowerCase().match(/[\u4e00-\u9fa5]+|[a-z]+/g) || [];
+      tokens.forEach(t => { if (t.length > 1) freq[t] = (freq[t] || 0) + 1; });
+      const sorted = Object.entries(freq).filter(([_,c]) => c >= 2).sort((a,b) => b[1]-a[1]).slice(0,20);
+      if (sorted.length > 0) {
+        document.getElementById('freqResult').innerHTML = '<pre>' + sorted.map(([w,c]) => w + ': ' + c + '次').join('\n') + '</pre>';
+        document.getElementById('freqSection').style.display = 'block';
+      } else {
+        document.getElementById('freqSection').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

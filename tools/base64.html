@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="免费在线Base64编解码工具，支持文本编码解码和文件转Base64">
+  <title>Base64编解码 - 在线工具箱</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="../about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">首页</a>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span>Base64编解码</span>
+    </div>
+
+    <div class="page-header">
+      <h1><div class="tool-icon">&#128220;</div>Base64编解码</h1>
+      <p>文本Base64编码/解码，支持文件转Base64</p>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-section">
+        <label for="textInput">输入文本</label>
+        <textarea id="textInput" rows="6" placeholder="输入要编码或解码的文本..."></textarea>
+      </div>
+
+      <div class="tool-section">
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="encodeBase64()">&#11014; 编码</button>
+          <button class="btn btn-secondary" onclick="decodeBase64()">&#11015; 解码</button>
+          <button class="btn btn-success" onclick="copyResult()">&#128203; 复制结果</button>
+          <button class="btn btn-danger" onclick="clearAll()">&#10060; 清空</button>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <label>或上传文件转Base64</label>
+        <div class="file-drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+          <p>&#128194; 点击或拖拽文件到此处</p>
+          <p style="font-size:0.85rem; margin-top:0.5rem;">支持图片、文档等任意文件</p>
+        </div>
+        <input type="file" id="fileInput" style="display:none;" onchange="handleFile(this.files[0])">
+      </div>
+
+      <div class="tool-section" id="resultSection" style="display:none;">
+        <div class="tool-section-title">结果</div>
+        <div class="result-box" id="base64Result"></div>
+      </div>
+    </div>
+
+    <div class="related-tools">
+      <h3>&#128161; 相关工具推荐</h3>
+      <div class="related-tools-grid">
+        <a href="url-encoder.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128279;</div>
+          <span>URL编解码</span>
+        </a>
+        <a href="json-formatter.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128203;</div>
+          <span>JSON格式化</span>
+        </a>
+        <a href="text-tools.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128221;</div>
+          <span>文本工具</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="../about.html">关于我们</a></p>
+  </footer>
+
+  <script>
+    function encodeBase64() {
+      const text = document.getElementById('textInput').value;
+      if (!text) { alert('请输入文本'); return; }
+      try {
+        const encoded = btoa(unescape(encodeURIComponent(text)));
+        showResult(encoded);
+      } catch (e) { alert('编码失败: ' + e.message); }
+    }
+
+    function decodeBase64() {
+      const text = document.getElementById('textInput').value.trim();
+      if (!text) { alert('请输入文本'); return; }
+      try {
+        const decoded = decodeURIComponent(escape(atob(text)));
+        showResult(decoded);
+      } catch (e) { alert('解码失败: 输入可能不是有效的Base64'); }
+    }
+
+    function handleFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => showResult(e.target.result);
+      reader.readAsDataURL(file);
+    }
+
+    function showResult(text) {
+      document.getElementById('base64Result').textContent = text;
+      document.getElementById('resultSection').style.display = 'block';
+    }
+
+    async function copyResult() {
+      const text = document.getElementById('base64Result').textContent;
+      if (!text) return;
+      try { await navigator.clipboard.writeText(text); alert('已复制'); }
+      catch (e) { alert('复制失败'); }
+    }
+
+    function clearAll() {
+      document.getElementById('textInput').value = '';
+      document.getElementById('base64Result').textContent = '';
+      document.getElementById('resultSection').style.display = 'none';
+    }
+
+    // 拖拽上传
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+  </script>
+</body>
+</html>

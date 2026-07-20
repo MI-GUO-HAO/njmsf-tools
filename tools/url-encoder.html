@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="免费在线URL编解码工具，URL编码和解码">
+  <title>URL编解码 - 在线工具箱</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="../about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">首页</a>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span>URL编解码</span>
+    </div>
+
+    <div class="page-header">
+      <h1><div class="tool-icon">&#128279;</div>URL编解码</h1>
+      <p>URL编码和解码，处理特殊字符和中文</p>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-section">
+        <label for="urlInput">输入文本</label>
+        <textarea id="urlInput" rows="6" placeholder="输入要编码或解码的URL或文本..."></textarea>
+      </div>
+
+      <div class="tool-section">
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="encodeURL()">&#11014; URL编码</button>
+          <button class="btn btn-secondary" onclick="decodeURL()">&#11015; URL解码</button>
+          <button class="btn btn-success" onclick="copyResult()">&#128203; 复制结果</button>
+          <button class="btn btn-danger" onclick="clearAll()">&#10060; 清空</button>
+        </div>
+      </div>
+
+      <div class="tool-section" id="resultSection" style="display:none;">
+        <div class="tool-section-title">结果</div>
+        <div class="result-box" id="urlResult"></div>
+      </div>
+    </div>
+
+    <div class="related-tools">
+      <h3>&#128161; 相关工具推荐</h3>
+      <div class="related-tools-grid">
+        <a href="base64.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128220;</div>
+          <span>Base64编解码</span>
+        </a>
+        <a href="json-formatter.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128203;</div>
+          <span>JSON格式化</span>
+        </a>
+        <a href="text-tools.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128221;</div>
+          <span>文本工具</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="../about.html">关于我们</a></p>
+  </footer>
+
+  <script>
+    function encodeURL() {
+      const text = document.getElementById('urlInput').value;
+      if (!text) { alert('请输入文本'); return; }
+      showResult(encodeURIComponent(text));
+    }
+
+    function decodeURL() {
+      const text = document.getElementById('urlInput').value.trim();
+      if (!text) { alert('请输入文本'); return; }
+      try { showResult(decodeURIComponent(text)); }
+      catch (e) { alert('解码失败: ' + e.message); }
+    }
+
+    function showResult(text) {
+      document.getElementById('urlResult').textContent = text;
+      document.getElementById('resultSection').style.display = 'block';
+    }
+
+    async function copyResult() {
+      const text = document.getElementById('urlResult').textContent;
+      if (!text) return;
+      try { await navigator.clipboard.writeText(text); alert('已复制'); }
+      catch (e) { alert('复制失败'); }
+    }
+
+    function clearAll() {
+      document.getElementById('urlInput').value = '';
+      document.getElementById('urlResult').textContent = '';
+      document.getElementById('resultSection').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

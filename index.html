@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="在线工具箱 - 免费实用的纯前端工具集合，包含二维码生成、密码生成、JSON格式化、时间戳转换等10+款工具">
+  <meta name="keywords" content="在线工具,二维码生成,密码生成,JSON格式化,Base64,时间戳转换,颜色转换,URL编码,Markdown编辑器">
+  <title>在线工具箱 - 免费实用的前端工具集合</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="tools/qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="tools/password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="tools/json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="tools/text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="tools/color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="tools/timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="tools/base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="tools/url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="tools/markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="tools/word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMenu()">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1>在线工具箱</h1>
+      <p>免费、实用、无需安装的纯前端工具集合，所有数据均在本地处理，保护您的隐私安全</p>
+    </section>
+
+    <div class="search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="text" id="searchInput" placeholder="搜索工具..." oninput="filterTools()">
+    </div>
+
+    <div class="tools-grid" id="toolsGrid">
+      <a href="tools/qr-generator.html" class="tool-card" data-name="二维码生成器">
+        <div class="tool-card-icon">&#128281;</div>
+        <div class="tool-card-title">二维码生成器</div>
+        <div class="tool-card-desc">输入文本或URL，快速生成二维码图片，支持下载保存到本地</div>
+      </a>
+      <a href="tools/password-generator.html" class="tool-card" data-name="密码生成器">
+        <div class="tool-card-icon">&#128273;</div>
+        <div class="tool-card-title">密码生成器</div>
+        <div class="tool-card-desc">自定义长度和字符类型，生成高强度随机密码，一键复制</div>
+      </a>
+      <a href="tools/json-formatter.html" class="tool-card" data-name="JSON格式化">
+        <div class="tool-card-icon">&#128203;</div>
+        <div class="tool-card-title">JSON格式化</div>
+        <div class="tool-card-desc">JSON格式化、压缩、校验，定位错误位置，支持语法高亮</div>
+      </a>
+      <a href="tools/text-tools.html" class="tool-card" data-name="文本去重排序">
+        <div class="tool-card-icon">&#128221;</div>
+        <div class="tool-card-title">文本去重排序</div>
+        <div class="tool-card-desc">多行文本去重、排序、统计行数，快速整理文本数据</div>
+      </a>
+      <a href="tools/color-converter.html" class="tool-card" data-name="颜色转换器">
+        <div class="tool-card-icon">&#127912;</div>
+        <div class="tool-card-title">颜色转换器</div>
+        <div class="tool-card-desc">HEX、RGB、HSL互转，实时预览颜色效果，一键复制色值</div>
+      </a>
+      <a href="tools/timestamp-converter.html" class="tool-card" data-name="时间戳转换">
+        <div class="tool-card-icon">&#128336;</div>
+        <div class="tool-card-title">时间戳转换</div>
+        <div class="tool-card-desc">Unix时间戳与日期时间互转，显示当前时间戳和实时时间</div>
+      </a>
+      <a href="tools/base64.html" class="tool-card" data-name="Base64编解码">
+        <div class="tool-card-icon">&#128220;</div>
+        <div class="tool-card-title">Base64编解码</div>
+        <div class="tool-card-desc">文本Base64编码/解码，支持文件转Base64字符串</div>
+      </a>
+      <a href="tools/url-encoder.html" class="tool-card" data-name="URL编解码">
+        <div class="tool-card-icon">&#128279;</div>
+        <div class="tool-card-title">URL编解码</div>
+        <div class="tool-card-desc">URL编码和解码，处理特殊字符和中文URL参数</div>
+      </a>
+      <a href="tools/markdown-editor.html" class="tool-card" data-name="Markdown编辑器">
+        <div class="tool-card-icon">&#9997;</div>
+        <div class="tool-card-title">Markdown编辑器</div>
+        <div class="tool-card-desc">左侧输入Markdown，右侧实时预览，支持常用语法</div>
+      </a>
+      <a href="tools/word-counter.html" class="tool-card" data-name="字数统计">
+        <div class="tool-card-icon">&#9998;</div>
+        <div class="tool-card-title">字数统计</div>
+        <div class="tool-card-desc">统计字数、字符数、行数、段落数，分析关键词频率</div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="about.html">关于我们</a></p>
+  </footer>
+
+  <script>
+    function filterTools() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.tool-card');
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        const desc = card.querySelector('.tool-card-desc').textContent.toLowerCase();
+        if (name.includes(query) || desc.includes(query)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function toggleMenu() {
+      alert('移动端菜单功能待完善，请使用桌面端访问全部工具列表');
+    }
+  </script>
+</body>
+</html>

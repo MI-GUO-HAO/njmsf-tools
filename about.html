@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="关于在线工具箱 - 免费实用的纯前端工具集合">
+  <title>关于我们 - 在线工具箱</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="tools/qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="tools/password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="tools/json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="tools/text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="tools/color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="tools/timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="tools/base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="tools/url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="tools/markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="tools/word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link active">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="index.html">首页</a>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span>关于</span>
+    </div>
+
+    <div class="page-header">
+      <h1><div class="tool-icon">&#128295;</div>关于在线工具箱</h1>
+      <p>免费、实用、保护隐私的纯前端工具集合</p>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-section">
+        <h2 style="margin-bottom:1rem; color:var(--accent-light);">我们的理念</h2>
+        <p style="color:var(--text-secondary); line-height:1.8;">
+          在线工具箱是一个完全免费的前端工具集合网站。所有工具均在浏览器本地运行，
+          您的数据不会上传到任何服务器，充分保护您的隐私安全。
+          无需注册、无需安装，打开网页即可使用。
+        </p>
+      </div>
+
+      <div class="tool-section">
+        <h2 style="margin-bottom:1rem; color:var(--accent-light);">功能特点</h2>
+        <ul style="color:var(--text-secondary); line-height:2; margin-left:1.5rem;">
+          <li>完全免费，无任何隐藏收费</li>
+          <li>纯前端实现，数据不上传服务器</li>
+          <li>响应式设计，适配手机和电脑</li>
+          <li>深色主题，保护眼睛</li>
+          <li>无需注册，即开即用</li>
+          <li>持续更新，添加更多实用工具</li>
+        </ul>
+      </div>
+
+      <div class="tool-section">
+        <h2 style="margin-bottom:1rem; color:var(--accent-light);">技术栈</h2>
+        <p style="color:var(--text-secondary); line-height:1.8;">
+          本站使用纯 HTML、CSS、JavaScript 构建，无需后端服务器。
+          部分工具使用 CDN 引入的第三方库（如 qrcode.js、marked.js），
+          所有代码均在您的浏览器中执行。
+        </p>
+      </div>
+
+      <div class="tool-section">
+        <h2 style="margin-bottom:1rem; color:var(--accent-light);">联系我们</h2>
+        <p style="color:var(--text-secondary); line-height:1.8;">
+          如果您有任何建议或问题，欢迎通过以下方式联系我们：
+        </p>
+        <p style="margin-top:0.5rem;">
+          <a href="mailto:contact@example.com" class="btn btn-primary" style="margin-top:0.5rem;">&#9993; 发送邮件</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="about.html">关于我们</a></p>
+  </footer>
+</body>
+</html>

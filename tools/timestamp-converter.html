@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="免费在线时间戳转换器，Unix时间戳与日期时间互转">
+  <title>时间戳转换 - 在线工具箱</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="../about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../index.html">首页</a>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span>时间戳转换</span>
+    </div>
+
+    <div class="page-header">
+      <h1><div class="tool-icon">&#128336;</div>时间戳转换</h1>
+      <p>Unix时间戳与日期时间互转，显示当前时间戳</p>
+    </div>
+
+    <div class="tool-container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="currentTimestamp">0</div>
+          <div class="stat-label">当前时间戳(秒)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="currentTime">-</div>
+          <div class="stat-label">当前时间</div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <label for="timestampInput">Unix 时间戳</label>
+        <input type="number" id="timestampInput" placeholder="例如: 1700000000">
+        <div class="btn-group" style="margin-top:0.75rem;">
+          <button class="btn btn-primary" onclick="timestampToDate()">&#128260; 转日期时间</button>
+          <button class="btn btn-secondary" onclick="fillCurrent()">使用当前时间戳</button>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <label for="dateInput">日期时间</label>
+        <input type="datetime-local" id="dateInput" step="1">
+        <div class="btn-group" style="margin-top:0.75rem;">
+          <button class="btn btn-primary" onclick="dateToTimestamp()">&#128260; 转时间戳</button>
+          <button class="btn btn-secondary" onclick="fillCurrentDate()">使用当前时间</button>
+        </div>
+      </div>
+
+      <div class="tool-section" id="resultSection" style="display:none;">
+        <div class="tool-section-title">转换结果</div>
+        <div class="result-box" id="convertResult"></div>
+      </div>
+    </div>
+
+    <div class="related-tools">
+      <h3>&#128161; 相关工具推荐</h3>
+      <div class="related-tools-grid">
+        <a href="json-formatter.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128203;</div>
+          <span>JSON格式化</span>
+        </a>
+        <a href="text-tools.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128221;</div>
+          <span>文本工具</span>
+        </a>
+        <a href="base64.html" class="related-tool-item">
+          <div class="related-tool-icon">&#128220;</div>
+          <span>Base64编解码</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="../about.html">关于我们</a></p>
+  </footer>
+
+  <script>
+    function updateCurrent() {
+      const now = new Date();
+      document.getElementById('currentTimestamp').textContent = Math.floor(now.getTime()/1000);
+      document.getElementById('currentTime').textContent = now.toLocaleString('zh-CN');
+    }
+    setInterval(updateCurrent, 1000);
+    updateCurrent();
+
+    function fillCurrent() {
+      document.getElementById('timestampInput').value = Math.floor(Date.now()/1000);
+    }
+
+    function fillCurrentDate() {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      document.getElementById('dateInput').value = now.toISOString().slice(0,19);
+    }
+
+    function timestampToDate() {
+      const ts = document.getElementById('timestampInput').value;
+      if (!ts) { alert('请输入时间戳'); return; }
+      const ms = ts.length > 10 ? parseInt(ts) : parseInt(ts) * 1000;
+      const date = new Date(ms);
+      if (isNaN(date.getTime())) { alert('无效的时间戳'); return; }
+      const result = `
+时间戳: ${ts}
+本地时间: ${date.toLocaleString('zh-CN')}
+UTC时间: ${date.toUTCString()}
+ISO格式: ${date.toISOString()}
+年-月-日: ${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}
+时:分:秒: ${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}:${String(date.getSeconds()).padStart(2,'0')}
+      `.trim();
+      document.getElementById('convertResult').innerHTML = '<pre>' + result + '</pre>';
+      document.getElementById('resultSection').style.display = 'block';
+    }
+
+    function dateToTimestamp() {
+      const val = document.getElementById('dateInput').value;
+      if (!val) { alert('请选择日期时间'); return; }
+      const date = new Date(val);
+      if (isNaN(date.getTime())) { alert('无效的日期'); return; }
+      const result = `
+日期时间: ${date.toLocaleString('zh-CN')}
+时间戳(秒): ${Math.floor(date.getTime()/1000)}
+时间戳(毫秒): ${date.getTime()}
+      `.trim();
+      document.getElementById('convertResult').innerHTML = '<pre>' + result + '</pre>';
+      document.getElementById('resultSection').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

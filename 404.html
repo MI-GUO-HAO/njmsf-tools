@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 页面未找到 - 在线工具箱</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">&#128295;</div>
+        <span>在线工具箱</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">首页</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle">工具列表 &#9662;</button>
+          <div class="dropdown-menu">
+            <a href="tools/qr-generator.html" class="dropdown-item">&#128281; 二维码生成器</a>
+            <a href="tools/password-generator.html" class="dropdown-item">&#128273; 密码生成器</a>
+            <a href="tools/json-formatter.html" class="dropdown-item">&#128203; JSON格式化</a>
+            <a href="tools/text-tools.html" class="dropdown-item">&#128221; 文本去重排序</a>
+            <a href="tools/color-converter.html" class="dropdown-item">&#127912; 颜色转换器</a>
+            <a href="tools/timestamp-converter.html" class="dropdown-item">&#128336; 时间戳转换</a>
+            <a href="tools/base64.html" class="dropdown-item">&#128220; Base64编解码</a>
+            <a href="tools/url-encoder.html" class="dropdown-item">&#128279; URL编解码</a>
+            <a href="tools/markdown-editor.html" class="dropdown-item">&#9997; Markdown编辑器</a>
+            <a href="tools/word-counter.html" class="dropdown-item">&#9998; 字数统计</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">关于</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="alert('请使用桌面端访问')">&#9776;</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="error-page">
+      <div class="error-code">404</div>
+      <h2 class="error-title">页面未找到</h2>
+      <p class="error-desc">您访问的页面不存在或已被移除</p>
+      <a href="index.html" class="btn btn-primary">&#127968; 返回首页</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>在线工具箱 - 纯前端实现，数据不上传服务器 | <a href="about.html">关于我们</a></p>
+  </footer>
+</body>
+</html>
