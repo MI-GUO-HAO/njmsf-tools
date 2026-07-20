@@ -1,0 +1,9 @@
+{
+  "_说明": "把本文件复制为 cookies.json 并填入你的登录凭据。凭据仅保存在本地仓库，不会上传到公开站点（public/ 目录之外）。",
+  "xiaohongshu": {
+    "cookie": "在此粘贴小红书网页版(creator.xiaohongshu.com 或 www.xiaohongshu.com) 的完整 Cookie 字符串"
+  },
+  "zhihu": {
+    "cookie": "在此粘贴知乎网页版(www.zhihu.com) 的完整 Cookie 字符串"
+  }
+}
