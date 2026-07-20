@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片压缩不损画质的方法（附本地工具） - 工具箱</title>
+<meta name="description" content="你是不是也遇到过这种情况：发图文内容时，图片太大，加载慢、平台限流、粉丝流失？">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",Arial,sans-serif; line-height:1.75; color:#333; background:#f6f7f9; }
+.site-header { background:#fff; border-bottom:1px solid #e8e8e8; padding:14px 0; position:sticky; top:0; z-index:100; }
+.header-container { max-width:900px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+.logo { font-size:20px; font-weight:700; color:#1a73e8; text-decoration:none; display:flex; align-items:center; gap:8px; }
+.nav-links a { color:#555; text-decoration:none; margin-left:20px; font-size:14px; }
+.nav-links a:hover { color:#1a73e8; }
+.container { max-width:900px; margin:0 auto; padding:24px 20px; }
+.article { background:#fff; border-radius:12px; padding:34px; box-shadow:0 2px 10px rgba(0,0,0,.05); margin-top:20px; }
+.back-link { display:inline-block; margin:20px 0 0; color:#1a73e8; text-decoration:none; font-size:14px; }
+.article h1 { font-size:28px; margin-bottom:10px; color:#1a1a1a; }
+.article h2 { font-size:21px; margin:30px 0 12px; color:#1a73e8; }
+.article h3 { font-size:17px; margin:22px 0 10px; color:#222; }
+.article p { margin-bottom:14px; color:#444; }
+.article ul { margin:14px 0; padding-left:22px; }
+.article li { margin-bottom:8px; color:#444; }
+.site-footer { text-align:center; color:#999; font-size:13px; padding:30px 20px; margin-top:40px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+.card { background:#fff; border-radius:10px; padding:18px; box-shadow:0 2px 8px rgba(0,0,0,.05); transition:.2s; }
+.card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.card h3 { font-size:16px; margin-bottom:8px; }
+.card h3 a { color:#1a73e8; text-decoration:none; }
+.card p { color:#666; font-size:13px; }
+.card-meta { margin-top:10px; font-size:12px; color:#999; }
+.section-title { font-size:22px; font-weight:600; margin:8px 0 4px; color:#1a73e8; }
+.page-intro { color:#666; font-size:15px; margin-bottom:6px; }
+@media(max-width:600px){ .article{padding:20px;} .article h1{font-size:23px;} }</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-container">
+    <a href="../index.html" class="logo">🧰 工具箱</a>
+    <nav class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="./">评测</a>
+      <a href="../about.html">关于</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <a href="../index.html" class="back-link">&larr; 返回首页</a>
+  <article class="article">
+<h1>图片压缩不损画质的方法（附本地工具）</h1>
+<p>你是不是也遇到过这种情况：发图文内容时，图片太大，加载慢、平台限流、粉丝流失？ 尤其是做自媒体的小伙伴，图片质量差、加载速度慢，直接影响内容表现和账号权重。 别急，今天教你一个**真正能压缩图片又不损失画质**的实操方法，还附上本地可用的工具，省心又安全。</p>
+<p>---</p>
+<h2>为什么图片压缩这么重要？</h2>
+<ul>
+<li>**平台限制多**：很多平台对图片大小有限制，超过就无法上传。</li>
+<li>**加载速度慢**：大图会让读者等很久，甚至直接离开页面。</li>
+<li>**影响用户体验**：模糊不清的图片，让人觉得内容不专业，降低信任感。</li>
+</ul>
+<p>---</p>
+<h2>核心方法：3步搞定高质量图片压缩</h2>
+<h3>第一步：选对工具，先看“本地”再看“在线”</h3>
+<p>不是所有压缩工具都靠谱，有些在线网站会偷偷收集你的数据，或者压缩后画质严重下降。 **推荐使用本地工具**，比如「IrfanView」或「XnConvert」，它们完全免费、无需登录、操作简单，而且处理速度快。</p>
+<p>> 小贴士：如果你不想下载软件，也可以用“免登录、本地处理”的在线工具，比如「TinyPNG」或「Compress JPEG PNG」，但记得只用于小文件，大文件还是建议本地处理更安全。</p>
+<p>---</p>
+<h3>第二步：设置合适的压缩参数</h3>
+<p>打开工具后，找到“导出”或“保存为”选项，选择“JPEG”或“PNG”格式，根据需要调整参数：</p>
+<ul>
+<li>**JPEG**：适合照片类图片，压缩率高，画质损失小。</li>
+<li>**PNG**：适合有透明背景的图片，画质保留好，但体积略大。</li>
+</ul>
+<p>在压缩设置中，注意以下几点：</p>
+<ul>
+<li>**质量值**：一般调到80~90之间，既不会太糊，也不会太大。</li>
+<li>**尺寸调整**：如果图片过大，可以适当缩小尺寸，比如从2000×2000降到1200×800。</li>
+<li>**颜色深度**：如果是普通图片，选“24位色”就够了，不用选更高位数。</li>
+</ul>
+<p>---</p>
+<h3>第三步：批量处理，效率翻倍</h3>
+<p>如果你要处理很多张图片，不要一张张手动压缩，浪费时间！</p>
+<ul>
+<li>在IrfanView中，点击“文件”→“批处理”，添加所有图片，设置好参数后一键完成。</li>
+<li>在XnConvert里，同样支持批量导入和导出，还能自定义命名规则，方便管理。</li>
+</ul>
+<p>> 操作小技巧：压缩完后，把原图备份一下，避免误删。</p>
+<p>---</p>
+<h2>常见坑：别踩这些雷！</h2>
+<h3>坑1：盲目追求“最小文件”</h3>
+<p>有人为了减到几KB，把图片压缩得特别糊，结果反而影响阅读体验。 记住：**压缩是优化，不是破坏**。保持清晰度才是关键。</p>
+<p>---</p>
+<h3>坑2：忽略图片格式选择</h3>
+<p>很多人一上来就选“PNG”，但其实大部分图文内容用“JPEG”更合适，体积更小、加载更快。 除非你有透明背景需求，否则尽量用JPEG。</p>
+<p>---</p>
+<h3>坑3：不检查压缩后的效果</h3>
+<p>压缩完别直接发出去！一定要预览一下，看看有没有明显失真、模糊或者颜色异常。 特别是人物照片、品牌LOGO这类重要图片，不能马虎。</p>
+<p>---</p>
+<h2>小结</h2>
+<p>**动手试试吧！** 用本地工具压缩图片，不仅省心安全，还能保证画质，让你的内容更专业、更流畅。</p>
+  </article>
+  <div class="affiliate-strip" style="margin-top:24px;background:#fffaf0;border:1px dashed #e6c97a;border-radius:10px;padding:12px 16px;font-size:.9rem;color:#7a5b00;">
+    好物推荐：<a href="https://uland.taobao.com/" target="_blank" rel="noopener" data-aff="taobao">淘宝好物（麦克风·补光灯·素材会员）</a> ·
+    <a href="https://union.jd.com/" target="_blank" rel="noopener" data-aff="jd">京东自营（拍摄设备·图书）</a>
+  </div>
+    <!-- ===== 流量统计代码（占位）=====
+         部署后取消注释并填入你的统计 ID：
+         51.la（免备案，推荐）：
+           <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+           <script>LA.init({id:"在此填51la_id",ck:"你的ck",autoTrack:true})</script>
+         百度统计：
+           <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?在此填baidu_id";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
+         Cloudflare Web Analytics（Cloudflare Pages 后台开启后自动注入，无需此段）：
+           <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"在此填token"}'></script>
+    -->
+
+</main>
+<footer class="site-footer"><p>&copy; 2026 工具箱 · 免费在线工具集合</p></footer>
+<script src="../js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自媒体账号安全：密码管理与二次验证实操 - 工具箱</title>
+<meta name="description" content="你是不是经常因为记不住密码而反复找回？或者担心账号被盗后内容被恶意篡改？别小看这些“小事”，一旦账号出问题，轻则损失粉丝，重则影响收入。今天就来手把手教你怎么**保护好自己的自媒体账号**，尤其是**">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",Arial,sans-serif; line-height:1.75; color:#333; background:#f6f7f9; }
+.site-header { background:#fff; border-bottom:1px solid #e8e8e8; padding:14px 0; position:sticky; top:0; z-index:100; }
+.header-container { max-width:900px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+.logo { font-size:20px; font-weight:700; color:#1a73e8; text-decoration:none; display:flex; align-items:center; gap:8px; }
+.nav-links a { color:#555; text-decoration:none; margin-left:20px; font-size:14px; }
+.nav-links a:hover { color:#1a73e8; }
+.container { max-width:900px; margin:0 auto; padding:24px 20px; }
+.article { background:#fff; border-radius:12px; padding:34px; box-shadow:0 2px 10px rgba(0,0,0,.05); margin-top:20px; }
+.back-link { display:inline-block; margin:20px 0 0; color:#1a73e8; text-decoration:none; font-size:14px; }
+.article h1 { font-size:28px; margin-bottom:10px; color:#1a1a1a; }
+.article h2 { font-size:21px; margin:30px 0 12px; color:#1a73e8; }
+.article h3 { font-size:17px; margin:22px 0 10px; color:#222; }
+.article p { margin-bottom:14px; color:#444; }
+.article ul { margin:14px 0; padding-left:22px; }
+.article li { margin-bottom:8px; color:#444; }
+.site-footer { text-align:center; color:#999; font-size:13px; padding:30px 20px; margin-top:40px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+.card { background:#fff; border-radius:10px; padding:18px; box-shadow:0 2px 8px rgba(0,0,0,.05); transition:.2s; }
+.card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.card h3 { font-size:16px; margin-bottom:8px; }
+.card h3 a { color:#1a73e8; text-decoration:none; }
+.card p { color:#666; font-size:13px; }
+.card-meta { margin-top:10px; font-size:12px; color:#999; }
+.section-title { font-size:22px; font-weight:600; margin:8px 0 4px; color:#1a73e8; }
+.page-intro { color:#666; font-size:15px; margin-bottom:6px; }
+@media(max-width:600px){ .article{padding:20px;} .article h1{font-size:23px;} }</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-container">
+    <a href="../index.html" class="logo">🧰 工具箱</a>
+    <nav class="nav-links">
+      <a href="../index.html">首页</a>
+      <a href="./">评测</a>
+      <a href="../about.html">关于</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <a href="../index.html" class="back-link">&larr; 返回首页</a>
+  <article class="article">
+<h1>自媒体账号安全：密码管理与二次验证实操指南</h1>
+<p>你是不是经常因为记不住密码而反复找回？或者担心账号被盗后内容被恶意篡改？别小看这些“小事”，一旦账号出问题，轻则损失粉丝，重则影响收入。今天就来手把手教你怎么**保护好自己的自媒体账号**，尤其是**密码管理和二次验证**这两块。</p>
+<p>---</p>
+<h2>为什么账号安全这么重要？</h2>
+<ul>
+<li>**密码泄露=账号被黑**：一旦别人拿到你的密码，他们可以随时登录、修改信息甚至删除内容。</li>
+<li>**没有二次验证=更容易被攻击**：很多平台默认不开启这个功能，相当于给黑客开了后门。</li>
+<li>**账号是你的数字资产**：不管是公众号、小红书还是抖音，账号就是你的“钱袋子”，得好好保护。</li>
+</ul>
+<p>---</p>
+<h2>核心方法：3步搞定密码管理与二次验证</h2>
+<h3>第一步：用密码管理器统一管理所有账号</h3>
+<p>**为什么重要**：如果你还用“123456”或“123456789”这种简单密码，那你的账号几乎等于裸奔。</p>
+<p>**怎么做**：</p>
+<ul>
+<li>下载一个可靠的密码管理器，比如 **Bitwarden（免费）** 或 **1Password（付费但更安全）**。</li>
+<li>在里面为每个平台生成一个**随机长密码**，比如 `@qW$7xL!p9Zm`。</li>
+<li>把这些密码保存进去，以后登录时直接复制粘贴，再也不用自己记了。</li>
+</ul>
+<p>> **小提示**：记得在密码管理器里设置强主密码，这个密码要你自己记住，不能用工具生成。</p>
+<p>---</p>
+<h3>第二步：开启二次验证（2FA）</h3>
+<p>**为什么重要**：即使密码被偷，没有二次验证的验证码，别人也进不了你的账号。</p>
+<p>**怎么做**：</p>
+<p>1. 打开你要保护的平台（比如微信、微博、抖音等）。 2. 进入“账户安全”或“安全设置”页面。 3. 找到“二次验证”选项，选择“短信验证”或“邮箱验证”。 4. 按照提示绑定手机或邮箱，完成设置。</p>
+<p>> **建议**：如果平台支持，尽量选“应用验证码”（如Google Authenticator），比短信更安全。</p>
+<p>---</p>
+<h3>第三步：定期更换密码 + 禁用不常用的登录方式</h3>
+<p>**为什么重要**：长期不换密码，容易被破解；不常用的登录方式可能成为漏洞。</p>
+<p>**怎么做**：</p>
+<ul>
+<li>每3个月更换一次常用平台的密码。</li>
+<li>在账号设置中，检查“登录设备”或“最近登录记录”，把不熟悉的设备踢掉。</li>
+<li>关闭“自动登录”功能，防止别人用你的电脑直接进入账号。</li>
+</ul>
+<p>---</p>
+<h2>常见坑：别踩这些雷</h2>
+<h3>1. 用同一个密码多个平台</h3>
+<p>很多人为了方便，用同一个密码注册所有账号。一旦其中一个被泄露，其他账号也会跟着遭殃。 ✅ **解决方案**：每个平台都用不同密码，用密码管理器帮你生成和管理。</p>
+<p>---</p>
+<h3>2. 不开启二次验证</h3>
+<p>很多新手不知道这个功能，或者觉得麻烦，干脆不开启。结果账号被黑，才后悔莫及。 ✅ **解决方案**：只要平台支持，**立刻开启**。哪怕只是短信验证，也能大大提升安全性。</p>
+<p>---</p>
+<h3>3. 随意点击不明链接</h3>
+<p>有些钓鱼网站会伪装成官方登录页面，诱导你输入账号密码。 ✅ **解决方案**：永远不要在非官网页面输入账号密码，尤其是收到“系统升级”、“账号异常”等短信时。</p>
+<p>---</p>
+<h2>小结</h2>
+<p>**行动建议**：现在就去设置你的密码管理器，开启二次验证，别等到账号出问题才后悔。</p>
+<p>记住，**安全不是一劳永逸的事**，而是每天都要坚持的小习惯。</p>
+  </article>
+  <div class="affiliate-strip" style="margin-top:24px;background:#fffaf0;border:1px dashed #e6c97a;border-radius:10px;padding:12px 16px;font-size:.9rem;color:#7a5b00;">
+    好物推荐：<a href="https://uland.taobao.com/" target="_blank" rel="noopener" data-aff="taobao">淘宝好物（麦克风·补光灯·素材会员）</a> ·
+    <a href="https://union.jd.com/" target="_blank" rel="noopener" data-aff="jd">京东自营（拍摄设备·图书）</a>
+  </div>
+    <!-- ===== 流量统计代码（占位）=====
+         部署后取消注释并填入你的统计 ID：
+         51.la（免备案，推荐）：
+           <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+           <script>LA.init({id:"在此填51la_id",ck:"你的ck",autoTrack:true})</script>
+         百度统计：
+           <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?在此填baidu_id";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script>
+         Cloudflare Web Analytics（Cloudflare Pages 后台开启后自动注入，无需此段）：
+           <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"在此填token"}'></script>
+    -->
+
+</main>
+<footer class="site-footer"><p>&copy; 2026 工具箱 · 免费在线工具集合</p></footer>
+<script src="../js/common.js"></script>
+</body>
+</html>

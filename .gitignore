@@ -2,6 +2,9 @@
 .env
 .env.*
 scripts/
+# 用户社媒登录凭据，严禁入库（含会话 Cookie）
+social/cookies.json
+social/PUBLISH_LOG.md
 __pycache__/
 *.pyc
 .venv/
